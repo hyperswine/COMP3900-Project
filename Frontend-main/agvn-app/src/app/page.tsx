@@ -1,5 +1,4 @@
 import React from "react"
-import { Text, Flex, Image, Heading, Divider } from "@chakra-ui/react"
 import { assignCards, DownCardProps } from "../components/InfoCard/down_card"
 import { Banner } from "../components/TheHeader"
 import Layout from "../components/TheLayout"
@@ -37,32 +36,33 @@ const HOME_CARDS: Array<DownCardProps> = [
 export default function HomePage() {
   return (
     <Layout>
-      <Banner />
-      <Flex direction="column" align="center" justify="center" minH="100vh" p={8}>
-        <Heading as="h1" size="2xl" mb={8} textAlign="center" color="darkBlue">
+      <Banner title="Welcome to AGVN" subtitle="Australian Government Virtual Network" />
+      <div className="flex flex-col items-center justify-center min-h-screen p-8">
+        <h1 className="text-5xl font-bold mb-8 text-center text-dark-blue">
           Welcome to AGVN
-        </Heading>
-        <Text fontSize="xl" textAlign="center" mb={8} maxW="600px" color="text">
-          Your gateway to Australian Government services and citizen engagement
-        </Text>
+        </h1>
+        <p className="text-xl text-center mb-8 max-w-2xl text-gray-600">
+          Your gateway to Australian Government services and citizen engagement.
+          Participate in democracy, stay informed, and make your voice heard.
+        </p>
 
-        <Divider mb={8} />
+        <hr className="w-full mb-8 border-gray-300" />
 
-        <Flex wrap="wrap" justify="center" gap={6}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {HOME_CARDS.map((card, index) => (
             <div key={index}>
               {assignCards(card)}
             </div>
           ))}
-        </Flex>
+        </div>
 
-        <Flex mt={8} align="center" justify="center">
-          <Image src={calendar} alt="Calendar" mr={4} />
-          <Text fontSize="lg" color="text">
+        <div className="flex items-center justify-center mt-8">
+          <img src={calendar} alt="Calendar" className="mr-4 w-8 h-8" />
+          <p className="text-lg text-gray-600">
             Stay updated with the latest government initiatives
-          </Text>
-        </Flex>
-      </Flex>
+          </p>
+        </div>
+      </div>
     </Layout>
   )
 }
