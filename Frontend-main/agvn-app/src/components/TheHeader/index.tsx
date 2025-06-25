@@ -1,11 +1,12 @@
 // @ts-nocheck
+'use client';
+
 import React, { useState } from "react";
-import { Box, Flex, Text, Image, Heading, Divider } from "@chakra-ui/react";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import Cookies from 'universal-cookie';
-import { NavDropdown, Container, Button, Nav, Navbar } from "react-bootstrap";
-import { Gear, Person, Sun, Bell } from "react-bootstrap-icons";
+import { Gear, Person, Sun, Bell, List, X } from "react-bootstrap-icons";
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import LogoAnimateVariants from '../2DAnimations'
 
 async function randomQuote() {
@@ -24,46 +25,48 @@ export interface BannerProps {
   display?: boolean,
 }
 
-const MotionHeading = (component: any) => (
-  <motion.div>
-    {component}
-  </motion.div>
-)
-
 export function Banner({ title, subtitle, quote, author, imgUrl, display = true }: BannerProps) {
-  const checkSubtitle = () => subtitle ? <Divider maxW="10rem" /> : <></>
-
-  const checkQuoteValid = () => {
-    if (!(quote && author)) {
-      randomQuote().then((d) => {
-        quote = d.content
-        author = d.author
-      })
-    }
-  }
+  const [currentQuote, setCurrentQuote] = React.useState(quote || '')
+  const [currentAuthor, setCurrentAuthor] = React.useState(author || '')
 
   React.useEffect(() => {
-
-  })
+    if (!quote || !author) {
+      randomQuote().then((d) => {
+        setCurrentQuote(d.content)
+        setCurrentAuthor(d.author)
+      })
+    }
+  }, [])
 
   return (
-    <Flex className="banner" backgroundColor="#282A2B" color="#D3D3D3" p="5rem">
-      <Flex className="title-pane" flexDir="column" w="50%" alignItems="center">
-        <motion.div whileHover={{ color: "#782020", transition: { spring: Infinity } }}>
-          <Heading>{title}</Heading>
-        </motion.div>
-        {checkSubtitle()}
-        <motion.p whileHover={{ skew: 5, textShadow: "0 0 10px", transition: { yoyo: Infinity } }}>
-          {subtitle}
-        </motion.p>
-      </Flex>
-      <Flex className="quote-pane" flexDir="column" w="50%">
-        <motion.p whileHover={{ skew: 2.5, textShadow: "0 0 10px", transition: { spring: Infinity } }}>
-          <Heading fontSize="12pt">{quote}</Heading>
-        </motion.p>
-        <Text ml="2rem">{author ? "-" + author : null}</Text>
-      </Flex>
-    </Flex>
+    <div className="bg-gray-800 text-gray-300 p-20">
+      <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col w-full lg:w-1/2 items-center mb-8 lg:mb-0">
+          <motion.div whileHover={{ color: "#dc2626", transition: { spring: "infinite" } }}>
+            <h1 className="text-4xl font-bold text-center">{title}</h1>
+          </motion.div>
+          {subtitle && (
+            <>
+              <hr className="w-40 border-gray-400 my-4" />
+              <motion.p
+                whileHover={{ skew: 5, textShadow: "0 0 10px", transition: { yoyo: "infinite" } }}
+                className="text-lg text-center"
+              >
+                {subtitle}
+              </motion.p>
+            </>
+          )}
+        </div>
+        <div className="flex flex-col w-full lg:w-1/2">
+          <motion.div whileHover={{ skew: 2.5, textShadow: "0 0 10px", transition: { spring: "infinite" } }}>
+            <h2 className="text-sm font-bold mb-2">"{currentQuote}"</h2>
+          </motion.div>
+          {currentAuthor && (
+            <p className="ml-8 text-sm">- {currentAuthor}</p>
+          )}
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -71,100 +74,11 @@ export default function TheHeader() {
   const router = useRouter();
   const [auth, setAuth] = React.useState(false);
   const cookies = new Cookies();
-  const logo = require("../../public/assets/AGVN_white_transparent.png");
-  const aeros = require("../../public/assets/aeros_logo.svg");
-  const [navColor, setNavColor] = React.useState('dark')
-  const [isDarkMode, setIsDarkMode] = React.useState(() => false);
+  const [isDarkMode, setIsDarkMode] = React.useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
-  function toHome(e: any) {
-    e.preventDefault();
-    router.push('/');
-  }
-
-  function toInitiative(e: any) {
-    e.preventDefault();
-    router.push('/initiatives');
-  }
-
-  function toVote(e: any) {
-    e.preventDefault();
-    router.push('/vote');
-  }
-
-  function toContribute(e: any) {
-    e.preventDefault();
-    router.push('/contribute');
-  }
-
-  function toResults(e: any) {
-    e.preventDefault();
-    router.push('/results');
-  }
-
-  function toSignin(e: any) {
-    e.preventDefault();
-    router.push('/signin');
-  }
-
-  function toSignup(e: any) {
-    e.preventDefault();
-    router.push('/signup');
-  }
-
-  function toProfile(e: any) {
-    e.preventDefault();
-    router.push('/profile');
-  }
-
-  function toAbout(e: any) {
-    e.preventDefault();
-    router.push('/about');
-  }
-
-  function toDepartments(e: any) {
-    e.preventDefault();
-    router.push('/departments');
-  }
-
-  function toSetting(e: any) {
-    e.preventDefault();
-    router.push('/settings')
-  }
-
-  function logout(e: any) {
-    e.preventDefault();
-    cookies.remove('token');
-    router.push('/');
-  }
-  function toPoll(e: any) {
-    e.preventDefault();
-    router.push('/poll')
-  }
-
-  function toPolicy(e: any) {
-    e.preventDefault();
-    router.push('/policies')
-  }
-
-  function toActions(e: any) {
-    e.preventDefault();
-    router.push('/actions')
-  }
-
-  function toNotifications(e: any) {
-    e.preventDefault();
-    router.push('/notifications')
-  }
-
-  function toAeros(e: any) {
-    e.preventDefault();
-    router.push('/aeros')
-  }
-
-  function toBudget(e: any){
-    e.preventDefault();
-    router.push('/budget')
-  }
+  const logo = "/assets/AGVN_white_transparent.png";
+  const aeros = "/assets/aeros_logo.svg";
 
   React.useEffect(() => {
     if (cookies.get('token') !== undefined) {
@@ -172,87 +86,199 @@ export default function TheHeader() {
     } else {
       setAuth(false);
     }
+  }, []);
 
-  });
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+    // You can implement actual theme switching logic here
+  };
 
-  const [collapse, setCollapse] = React.useState()
+  const logout = () => {
+    cookies.remove('token');
+    router.push('/');
+  };
+
+  const mainNavItems = [
+    { label: 'About', href: '/about' },
+    { label: 'Actions', href: '/actions' },
+    { label: 'Policies', href: '/policies' },
+  ];
+
+  const actionNavItems = [
+    { label: 'Vote', href: '/vote' },
+    { label: 'Poll', href: '/poll' },
+    { label: 'Contribute', href: '/contribute' },
+  ];
+
+  const otherItems = [
+    { label: 'Departments', href: '/departments' },
+    { label: 'Initiatives', href: '/initiatives' },
+    { label: 'Results', href: '/results' },
+    { label: 'Budget', href: '/budget' },
+  ];
 
   return (
-    <header>
-      <Navbar bg={navColor} variant={navColor} expand='lg' className="flex-column space-evenly">
-        <Container style={{ paddingBottom: 0 }}>
-          <Navbar.Brand style={{ paddingBottom: 0 }} onClick={toHome}>
+    <header className={`${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-800 text-gray-300'} shadow-lg`}>
+      {/* Top navigation bar */}
+      <div className="container mx-auto px-4 py-2">
+        <div className="flex justify-between items-center">
+          <Link href="/" className="flex items-center">
             <motion.img
               src={logo}
-              width='137.48'
-              height='280'
-              className="d-inline-block align-top"
+              width={80}
+              height={60}
+              className="cursor-pointer rounded-lg"
               alt="AGVN Logo"
-              style={{ cursor: 'pointer', borderRadius: "25px" }}
             />
-          </Navbar.Brand>
-          <Nav
-            style={{ fontSize: 12, paddingBottom: 0 }}
-          >
-            <Nav.Link onClick={toAbout}>About</Nav.Link>
-            <Nav.Link onClick={toActions}>Actions</Nav.Link>
-            <Nav.Link onClick={toPolicy}>Policies</Nav.Link>
-          </Nav>
-        </Container>
-        <Container>
-          <Nav>
-            <motion.div whileHover={{ skew: 20, transition: { yoyo: Infinity } }}>
-              <Nav.Link onClick={toHome} style={{ fontSize: 12 }}>Auto Governing System | Australia</Nav.Link>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex space-x-6 text-sm">
+            {mainNavItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="hover:text-blue-400 transition-colors"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+      </div>
+
+      {/* Secondary navigation */}
+      <div className="border-t border-gray-700">
+        <div className="container mx-auto px-4 py-2">
+          <div className="flex justify-between items-center">
+            <motion.div whileHover={{ skew: 20, transition: { yoyo: "infinite" } }}>
+              <Link href="/" className="text-sm hover:text-blue-400">
+                Auto Governing System | Australia
+              </Link>
             </motion.div>
-          </Nav>
-          <Nav className="ml-auto">
-            <Nav.Link><motion.img src={aeros} width='80' height='40' variants={LogoAnimateVariants}
-              whileHover="hover" onClick={toAeros} />
-            </Nav.Link>
-            {/* TODO: make this a dropdown with a button that goes to /notifications */}
-            {auth && <Nav.Link onClick={toNotifications}>
-              <Bell size={25} />
-            </Nav.Link>}
-          </Nav>
-        </Container>
-        <Container>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id='responsive-navbar-nav'>
-            <Nav justify style={{ width: '80%' }}>
-              <Nav.Link className="navhover" onClick={toVote} style={{ backgroundColor: "#333333" }}>Vote</Nav.Link>
-              <Nav.Link className="navhover" onClick={toPoll} style={{ backgroundColor: "#333333" }}>Poll</Nav.Link>
-              <Nav.Link className="navhover" onClick={toContribute} style={{ backgroundColor: "#333333" }}>Contribute</Nav.Link>
-              <NavDropdown title="Others" id="collaible-nav-dropdown" className="navhover" style={{ backgroundColor: "#333333" }}>
-                <NavDropdown.Item onClick={toDepartments}>Departments</NavDropdown.Item>
-                <NavDropdown.Item onClick={toInitiative}>Initiatives</NavDropdown.Item>
-                <NavDropdown.Item onClick={toResults}>Results</NavDropdown.Item>
-                <NavDropdown.Item onClick={toBudget}>Budget</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-            <Nav className="ms-auto">
-              {!auth && (
-                <Nav.Link onClick={toSignin}>Login</Nav.Link>
-              )}
+
+            <div className="flex items-center space-x-4">
+              <Link href="/aeros">
+                <motion.img
+                  src={aeros}
+                  width={60}
+                  height={30}
+                  variants={LogoAnimateVariants}
+                  whileHover="hover"
+                  className="cursor-pointer"
+                  alt="Aeros"
+                />
+              </Link>
+
               {auth && (
-                <Nav.Link onClick={toProfile}><Person size={25} /></Nav.Link>
+                <Link href="/notifications" className="hover:text-blue-400">
+                  <Bell size={20} />
+                </Link>
               )}
-              {auth && <Nav.Link onClick={toSetting}>
-                <motion.div whileHover="hoverthree" variants={LogoAnimateVariants}>
-                  <Gear size={25} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main navigation */}
+      <div className="border-t border-gray-700">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex justify-between items-center">
+            {/* Mobile menu button */}
+            <button
+              className="lg:hidden"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <List size={24} />}
+            </button>
+
+            {/* Desktop navigation */}
+            <nav className="hidden lg:flex space-x-6">
+              {actionNavItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors"
+                >
+                  {item.label}
+                </Link>
+              ))}
+
+              {/* Others dropdown - simplified for now */}
+              <div className="relative group">
+                <button className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors">
+                  Others
+                </button>
+                <div className="absolute top-full left-0 mt-1 w-48 bg-gray-700 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                  {otherItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="block px-4 py-2 hover:bg-gray-600 transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </nav>
+
+            {/* User actions */}
+            <div className="flex items-center space-x-4">
+              {!auth ? (
+                <Link href="/auth/signin" className="hover:text-blue-400">
+                  Login
+                </Link>
+              ) : (
+                <>
+                  <Link href="/profile" className="hover:text-blue-400">
+                    <Person size={20} />
+                  </Link>
+                  <Link href="/settings" className="hover:text-blue-400">
+                    <motion.div whileHover="hoverthree" variants={LogoAnimateVariants}>
+                      <Gear size={20} />
+                    </motion.div>
+                  </Link>
+                </>
+              )}
+
+              <button onClick={toggleTheme} className="hover:text-blue-400">
+                <motion.div
+                  whileHover="hoverfive"
+                  variants={LogoAnimateVariants}
+                  className="rounded-full"
+                >
+                  <Sun size={20} />
                 </motion.div>
-              </Nav.Link>}
-              <Nav.Link onClick={() => { setNavColor(navColor == 'dark' ? 'light' : 'dark') }}>
-                <motion.div whileHover="hoverfive" variants={LogoAnimateVariants} style={{ borderRadius: "25px" }}>
-                  <Sun size={25} />
-                </motion.div>
-              </Nav.Link>
+              </button>
+
               {auth && (
-                <Nav.Link onClick={logout}>Logout</Nav.Link>
+                <button onClick={logout} className="hover:text-blue-400">
+                  Logout
+                </button>
               )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+            </div>
+          </div>
+
+          {/* Mobile menu */}
+          {isMobileMenuOpen && (
+            <div className="lg:hidden mt-4 border-t border-gray-700 pt-4">
+              <div className="space-y-2">
+                {[...actionNavItems, ...otherItems].map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded transition-colors"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </header>
   );
 }

@@ -1,14 +1,14 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import Cookies from 'universal-cookie';
-import ContributeChart from '../../components/ContributeChart';
-import PageTitle from "../../components/PageTitle";
-import Popups from '../../components/Popup';
-import Layout from '../../components/TheLayout';
+import React from 'react'
+import { useRouter } from 'next/navigation'
+import Cookies from 'universal-cookie'
+import ContributeChart from '../../components/ContributeChart'
+import PageTitle from "../../components/PageTitle"
+import Popups from '../../components/Popup'
+import Layout from '../../components/TheLayout'
 
-const host = 'http://127.0.0.1:8000/api/v1';
+const host = 'http://127.0.0.1:8000/api/v1'
 
 const policyTypeValueSample = [
   {
@@ -41,13 +41,12 @@ const PoliticalInterests = () => {
         {policyTypeValueSample.map((p, index) => (
           <div key={index} className="grid grid-cols-2 gap-4 py-2">
             <div>{p.policyType}</div>
-            <div className={`font-medium ${
-              p.favorability === 'High' || p.favorability === 'Very High'
+            <div className={`font-medium ${p.favorability === 'High' || p.favorability === 'Very High'
                 ? 'text-green-600'
                 : p.favorability === 'Neutral'
                   ? 'text-blue-600'
                   : 'text-gray-600'
-            }`}>
+              }`}>
               {p.favorability}
             </div>
           </div>
@@ -58,67 +57,67 @@ const PoliticalInterests = () => {
 }
 
 export default function Profile() {
-  const [email, setEmail] = React.useState('');
-  const [name, setName] = React.useState('');
-  const [sex, setSex] = React.useState('');
-  const [age, setAge] = React.useState('');
-  const [phoneNumber, setPhoneNumber] = React.useState('');
-  const [postcode, setPostcode] = React.useState('');
-  const [driverLicense, setDriverLicense] = React.useState('');
-  const [medicare, setMedicare] = React.useState('');
-  const [irn, setIrn] = React.useState('');
-  const [errorMsg, setErrorMsg] = React.useState('');
-  const [successMsg, setSuccessMsg] = React.useState('');
-  const [loading, setLoading] = React.useState(true);
+  const [email, setEmail] = React.useState('')
+  const [name, setName] = React.useState('')
+  const [sex, setSex] = React.useState('')
+  const [age, setAge] = React.useState('')
+  const [phoneNumber, setPhoneNumber] = React.useState('')
+  const [postcode, setPostcode] = React.useState('')
+  const [driverLicense, setDriverLicense] = React.useState('')
+  const [medicare, setMedicare] = React.useState('')
+  const [irn, setIrn] = React.useState('')
+  const [errorMsg, setErrorMsg] = React.useState('')
+  const [successMsg, setSuccessMsg] = React.useState('')
+  const [loading, setLoading] = React.useState(true)
 
-  const cookies = new Cookies();
-  const router = useRouter();
+  const cookies = new Cookies()
+  const router = useRouter()
 
   React.useEffect(() => {
-    const token = cookies.get('token');
+    const token = cookies.get('token')
     if (!token) {
-      router.push('/auth/signin');
-      return;
+      router.push('/auth/signin')
+      return
     }
 
-    fetchUserData();
-  }, []);
+    fetchUserData()
+  }, [])
 
   const fetchUserData = async () => {
     try {
-      const token = cookies.get('token');
+      const token = cookies.get('token')
       const response = await fetch(`${host}/user/profile`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
-      });
+      })
 
       if (response.ok) {
-        const userData = await response.json();
-        setEmail(userData.email || '');
-        setName(userData.name || '');
-        setSex(userData.sex || '');
-        setAge(userData.age || '');
-        setPhoneNumber(userData.phone_number || '');
-        setPostcode(userData.postcode || '');
-        setDriverLicense(userData.driver_license || '');
-        setMedicare(userData.medicare || '');
-        setIrn(userData.individual_reference_number || '');
+        const userData = await response.json()
+        setEmail(userData.email || '')
+        setName(userData.name || '')
+        setSex(userData.sex || '')
+        setAge(userData.age || '')
+        setPhoneNumber(userData.phone_number || '')
+        setPostcode(userData.postcode || '')
+        setDriverLicense(userData.driver_license || '')
+        setMedicare(userData.medicare || '')
+        setIrn(userData.individual_reference_number || '')
       } else {
-        setErrorMsg('Failed to load profile data');
+        setErrorMsg('Failed to load profile data')
       }
     } catch (error) {
-      setErrorMsg('Error loading profile data');
+      setErrorMsg('Error loading profile data')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handleLogout = () => {
-    cookies.remove('token');
-    router.push('/');
-  };
+    cookies.remove('token')
+    router.push('/')
+  }
 
   if (loading) {
     return (
@@ -127,7 +126,7 @@ export default function Profile() {
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900"></div>
         </div>
       </Layout>
-    );
+    )
   }
 
   return (
@@ -239,5 +238,5 @@ export default function Profile() {
       <Popups type="error" message={errorMsg} />
       <Popups type="success" message={successMsg} />
     </Layout>
-  );
+  )
 }

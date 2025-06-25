@@ -1,5 +1,4 @@
 import React from 'react'
-import { Box, Flex, Text } from '@chakra-ui/react'
 
 interface BannerProps {
     title: string
@@ -10,29 +9,21 @@ interface BannerProps {
 
 const Banner = (props: BannerProps) => {
     return (
-        <Flex
-            justify="space-between"
-            alignItems="center"
-            bg="#282A2B"
-            w="100%"
-            h="310px"
-            textColor="#D3D3D3"
-            px="15%"
-        >
-            <Flex flexDir="column" alignItems="center">
-                <Text fontSize="36px">{props.title}</Text>
-                <Box bg="#D3D3D3" h="1px" w="50%" my="14px" />
-                <Text fontSize="20px" textAlign="center">
+        <div className="flex justify-between items-center bg-[#282A2B] w-full h-[310px] text-[#D3D3D3] px-[15%]">
+            <div className="flex flex-col items-center">
+                <h2 className="text-4xl">{props.title}</h2>
+                <div className="bg-[#D3D3D3] h-px w-1/2 my-4" />
+                <p className="text-xl text-center">
                     {props.subtitle}
-                </Text>
-            </Flex>
-            <Box maxW="60%">
-                <Text fontSize="28px">{props.quote}</Text>
-                <Text fontSize="20px" textAlign="center">
+                </p>
+            </div>
+            <div className="max-w-[60%]">
+                <p className="text-3xl">{props.quote}</p>
+                <p className="text-xl text-center">
                     -{props.author}
-                </Text>
-            </Box>
-        </Flex>
+                </p>
+            </div>
+        </div>
     )
 }
 

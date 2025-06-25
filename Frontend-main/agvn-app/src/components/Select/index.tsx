@@ -1,5 +1,4 @@
 import React from 'react'
-import { Flex, Text, Select, Box } from '@chakra-ui/react'
 
 interface CustomSelectProps {
     position: number
@@ -13,20 +12,25 @@ interface CustomSelectProps {
 
 const CustomSelect = (props: CustomSelectProps) => {
     return (
-        <Box>
-            <Text>
+        <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-medium mb-2">
                 {props.position}. {props.label}
-            </Text>
-            <Select onSelect={(x) => console.log({ x })}>
+            </label>
+            <select
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                onChange={(e) => props.onClick?.(e.target.value)}
+            >
+                <option value="">Select an option...</option>
                 {props.options.map((opt) => (
                     <option
                         value={opt.value}
-                        label={opt.label}
                         key={opt.value}
-                    />
+                    >
+                        {opt.label}
+                    </option>
                 ))}
-            </Select>
-        </Box>
+            </select>
+        </div>
     )
 }
 

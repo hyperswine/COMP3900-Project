@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Box, Text } from "@chakra-ui/react";
 
 interface PageTitleProps {
   title: string;
@@ -8,14 +7,14 @@ interface PageTitleProps {
 
 const PageTitle = ({ title, subtitle }: PageTitleProps) => {
   return (
-    <Box color='text' gridColumn='3/end'>
-      <Text align="center" as='h3' fontSize='36px' color='black'>
+    <div className="text-black col-start-3 col-end-[-1]">
+      <h3 className="text-center text-4xl text-black">
         {title}
-      </Text>
-      <Text align="center" fontSize='28px' mt='1rem'>
+      </h3>
+      <p className="text-center text-3xl mt-4">
         {subtitle}
-      </Text>
-    </Box>
+      </p>
+    </div>
   );
 };
 

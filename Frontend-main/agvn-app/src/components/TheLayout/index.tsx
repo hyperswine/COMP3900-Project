@@ -1,19 +1,22 @@
 // @ts-nocheck
 
 import React from 'react'
-import { Flex, Box, Button, Grid, GridItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, FormControl, Input, Text } from '@chakra-ui/react'
 import Header from '../TheHeader'
 import Footer from '../TheFooter'
-import axios from "axios";
-import { ChatDotsFill } from 'react-bootstrap-icons'
+import axios from "axios"
+import { ChatDotsFill, X } from 'react-bootstrap-icons'
 import { motion } from 'framer-motion'
-import { useRef } from 'react';
+import { useRef } from 'react'
 
-interface TheLayoutProps { }
+interface TheLayoutProps {
+    children: React.ReactNode
+}
 
 const TheLayout: React.FC<TheLayoutProps> = ({ children }) => {
     let [message, setMessage] = React.useState<string>('')
     let [chatbotReply, setChatbotReply] = React.useState<string>('')
+    const [isModalOpen, setIsModalOpen] = React.useState(false)
+
     React.useEffect(async (): void => {
         try {
             async function chatBotReply(userMessage: string): Promise<string> {
@@ -61,7 +64,6 @@ const TheLayout: React.FC<TheLayoutProps> = ({ children }) => {
 
     const messageEvent = useRef(null)
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
     const [inputValue, setInputValue] = React.useState("")
     const handleInputChange = (event) => setInputValue(event.target.value)
     var currId = 1
@@ -73,62 +75,90 @@ const TheLayout: React.FC<TheLayoutProps> = ({ children }) => {
         }
     }
 
+    const chatModal = isModalOpen ? (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center">
+            <div className="relative bg-white rounded-lg shadow-xl w-full max-w-2xl h-[80vh] flex flex-col">
+                {/* Header */}
+                <div className="flex justify-between items-center p-6 border-b border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900">Chat with AGVN Bot</h3>
+                    <button
+                        onClick={() => setIsModalOpen(false)}
+                        className="text-gray-400 hover:text-gray-600"
+                    >
+                        <X size={24} />
+                    </button>
+                </div>
+
+                {/* Messages */}
+                <div className="flex-1 overflow-y-auto p-6" ref={messageEvent}>
+                    <div className="flex flex-col w-full space-y-4">
+                        {messageHistory.map((m) => (
+                            <div
+                                key={m.id}
+                                className={`flex ${m.by === 0 ? 'justify-end' : 'justify-start'}`}
+                            >
+                                <motion.div whileHover={{ scale: 1.05 }}>
+                                    <div
+                                        className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${m.by === 0
+                                            ? 'bg-blue-500 text-white'
+                                            : 'bg-gray-200 text-gray-800'
+                                            }`}
+                                    >
+                                        <p className="font-semibold text-sm">
+                                            {m.by === 1 ? "Bot: " : "You: "}
+                                            <span className="font-normal ml-1">{m.message}</span>
+                                        </p>
+                                    </div>
+                                </motion.div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Input */}
+                <div className="p-6 border-t border-gray-200">
+                    <div className="flex gap-2">
+                        <input
+                            value={inputValue}
+                            onChange={handleInputChange}
+                            placeholder="Send a message"
+                            onKeyPress={handleKeyPressChatbot}
+                            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                        <button
+                            onClick={() => {
+                                getReply(inputValue, { by: 0, message: inputValue, id: currId + 1 })
+                            }}
+                            className="px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 font-medium"
+                        >
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ) : null
+
     // @ts-ignore
     return (
         <>
-            <Modal onClose={onClose} isOpen={isOpen} isCentered>
-                <ModalOverlay />
-                <ModalContent style={{ height: "50rem" }}>
-                    <ModalHeader>Chat with AGVN Bot</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody style={{ overflowY: 'scroll' }}>
-                        <Flex flexDir="column" w="100%" ref={messageEvent}>
-                            {
-                                messageHistory.map((m) => (
-                                    <Flex marginLeft={m.by === 0 ? "auto" : ""} key={m.id} backgroundColor={m.by === 0 ? "#4287f5" : "#e6e6e6"} color={m.by === 0 ? "#f0f0f0" : "#3d3c3c"} fontWeight="semibold" borderRadius="25px" w="50%" mb="1rem">
-                                        <motion.div whileHover={{ scale: 1.1 }}>
-                                            <Flex m="1rem">
-                                                <Text pl="1.5rem">
-                                                    {(m.by === 1 ? "Bot: " : "You: ")}
-                                                </Text>
-                                                <Text ml=".5rem">
-                                                    {m.message}
-                                                </Text>
-                                            </Flex>
-                                        </motion.div>
-                                    </Flex>
-                                ))
-                            }
-                        </Flex>
-                    </ModalBody>
-                    <ModalFooter>
-                        {/* Form to send messages */}
-                        <FormControl id="input">
-                            <Input value={inputValue} onChange={handleInputChange} variant="filled" placeholder="Send a message" onKeyPress={handleKeyPressChatbot} />
-                            <Button
-                                mt={4}
-                                colorScheme="teal"
-                                type="submit"
-                                onClick={() => {
-                                    getReply(inputValue, { by: 0, message: inputValue, id: currId + 1 })
-                                }}
-                            >
-                                Send
-                            </Button>
-                        </FormControl>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
-            <Box className="chatbot-container" pos="fixed" bottom="4rem" right="4rem" style={{ cursor: "pointer" }} zIndex="3">
+            {chatModal}
+
+            <div className="fixed bottom-16 right-16 cursor-pointer z-30">
                 <motion.div whileHover={{ scale: 1.1 }}>
-                    <ChatDotsFill onClick={onOpen} size={35} />
+                    <div
+                        onClick={() => setIsModalOpen(true)}
+                        className="bg-blue-600 hover:bg-blue-700 p-3 rounded-full shadow-lg transition-colors"
+                    >
+                        <ChatDotsFill size={35} color="white" />
+                    </div>
                 </motion.div>
-            </Box>
+            </div>
 
             <Header />
-            <Box>
+            <div>
                 {children}
-            </Box>
+            </div>
             <Footer />
         </>
     )

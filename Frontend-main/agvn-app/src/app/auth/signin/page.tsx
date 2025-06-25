@@ -1,26 +1,26 @@
 'use client'
 
-import React from 'react';
-import { Button, Text, Box, Flex, Input, FormControl, FormLabel } from '@chakra-ui/react';
-import Link from 'next/link';
-import Cookies from 'universal-cookie';
-import { useRouter } from 'next/navigation';
-import Popups from '../../../components/Popup';
-import PageTitle from '../../../components/PageTitle';
-import { Banner } from '../../../components/TheHeader';
-import Layout from '../../../components/TheLayout';
+import React from 'react'
+import { Button, Text, Box, Flex, Input, FormControl, FormLabel } from '@chakra-ui/react'
+import Link from 'next/link'
+import Cookies from 'universal-cookie'
+import { useRouter } from 'next/navigation'
+import Popups from '../../../components/Popup'
+import PageTitle from '../../../components/PageTitle'
+import { Banner } from '../../../components/TheHeader'
+import Layout from '../../../components/TheLayout'
 
-const host = 'http://127.0.0.1:8000/api/v1';
+const host = 'http://127.0.0.1:8000/api/v1'
 
 export default function SigninPage() {
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [errorMsg, setErrorMsg] = React.useState('');
-    const cookies = new Cookies();
-    const router = useRouter();
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
+    const [errorMsg, setErrorMsg] = React.useState('')
+    const cookies = new Cookies()
+    const router = useRouter()
 
     async function login(e: any) {
-        e.preventDefault();
+        e.preventDefault()
         try {
             const req = {
                 method: 'POST',
@@ -34,40 +34,40 @@ export default function SigninPage() {
                         "password": password,
                     }
                 )
-            };
-            const response = await fetch(`${host}/login`, req);
+            }
+            const response = await fetch(`${host}/login`, req)
             if (response.status === 400) {
-                setEmail('');
-                setPassword('');
-                setErrorMsg('Wrong password or email');
+                setEmail('')
+                setPassword('')
+                setErrorMsg('Wrong password or email')
             } else {
-                const data = await response.json();
+                const data = await response.json()
                 setErrorMsg('')
-                cookies.set('token', data.token, { path: '/' });
-                router.push('/');
+                cookies.set('token', data.token, { path: '/' })
+                router.push('/')
             }
         } catch (error) {
-            setErrorMsg("Please try again.");
-            setPassword('');
+            setErrorMsg("Please try again.")
+            setPassword('')
         }
     }
 
     React.useEffect(() => {
         if (cookies.get('token') !== undefined) {
-            router.push('/');
+            router.push('/')
         }
     })
 
     function recordEmail(e: any) {
-        e.preventDefault();
-        setEmail(e.target.value);
-        setErrorMsg('');
+        e.preventDefault()
+        setEmail(e.target.value)
+        setErrorMsg('')
     }
 
     function recordPassword(e: any) {
-        e.preventDefault();
-        setPassword(e.target.value);
-        setErrorMsg('');
+        e.preventDefault()
+        setPassword(e.target.value)
+        setErrorMsg('')
     }
 
     return (

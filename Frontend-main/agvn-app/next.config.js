@@ -14,8 +14,8 @@ const nextConfig = {
           limit: 100000,
         },
       },
-    });
-    return config;
+    })
+    return config
   },
 }
 

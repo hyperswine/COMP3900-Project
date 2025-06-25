@@ -1,8 +1,6 @@
 import React from 'react'
-import { Divider, Flex, Box, Heading, Text } from '@chakra-ui/layout'
-import { Image } from '@chakra-ui/image'
 import { motion } from 'framer-motion'
-import styled from 'styled-components'
+import Image from 'next/image'
 import Link from 'next/link'
 
 const cardMotion = {
@@ -20,12 +18,6 @@ const cardMotion = {
         }
     }
 }
-
-const LineDivider = styled(motion(Divider))`
-`
-const Card = styled(motion.div)`
-    cursor: pointer;
-`
 
 const lineExpansion = {
     rest: {
@@ -51,13 +43,13 @@ export interface DownCardProps {
 
 export const assignCards = (cardData: Array<DownCardProps>) => {
     return (
-        <Flex justifyContent="center" flexDirection="row" alignItems="center" flexWrap="wrap">
+        <div className="flex justify-center flex-row items-center flex-wrap">
             {cardData.map((c) => (
-                <Box key={c.title} m="2.5rem" minW="30rem">
+                <div key={c.title} className="m-10 min-w-[30rem]">
                     <DownCard {...c} />
-                </Box>
+                </div>
             ))}
-        </Flex>
+        </div>
     )
 }
 
@@ -66,23 +58,39 @@ export const assignCards = (cardData: Array<DownCardProps>) => {
 
 function DownCard({ title, subtitle, content, imageUrl, directUrl, externalUrl }: DownCardProps) {
     return (
-        <Card className="card" whileHover="hover" animate="rest" variants={cardMotion}>
+        <motion.div
+            className="card cursor-pointer"
+            whileHover="hover"
+            animate="rest"
+            variants={cardMotion}
+        >
             <Link href={((directUrl? directUrl: "") || (externalUrl? externalUrl: ""))}>
-            <Box rounded="false" justifyContent="center" p="5rem 0">
-                <Heading textAlign="center" mb="2rem">{title}</Heading>
-                <Text fontSize="14px" pl="5rem" pb="1rem">
-                    {subtitle}
-                </Text>
-                <Box pl="5rem">
-                    <LineDivider variants={lineExpansion} />
-                    <Flex alignItems="center" justifyContent="center">
-                        <Image src={imageUrl} maxW='50%' mt="1.5rem" mb="1.5rem" ml="1.5rem" h="5rem" />
-                    </Flex>
-
-                </Box>
-            </Box>
+                <div className="rounded-none justify-center py-20">
+                    <h2 className="text-center mb-8 text-xl font-bold">{title}</h2>
+                    <p className="text-sm pl-20 pb-4 text-gray-600">
+                        {subtitle}
+                    </p>
+                    <div className="pl-20">
+                        <motion.div
+                            className="h-px bg-gray-300 mb-6"
+                            variants={lineExpansion}
+                        />
+                        <div className="flex items-center justify-center">
+                            {imageUrl && (
+                                <div className="max-w-[50%] mt-6 mb-6 ml-6 h-20 relative">
+                                    <Image
+                                        src={imageUrl}
+                                        alt={title}
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
             </Link>
-        </Card>
+        </motion.div>
     )
 }
 

@@ -1,21 +1,21 @@
-'use client';
+'use client'
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Cookies from 'universal-cookie';
-import { Banner } from '../../components/TheHeader';
-import PageTitle from '../../components/PageTitle';
-import Popups from '../../components/Popup';
-import axios from 'axios';
-import Layout from '../../components/TheLayout';
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import Cookies from 'universal-cookie'
+import { Banner } from '../../components/TheHeader'
+import PageTitle from '../../components/PageTitle'
+import Popups from '../../components/Popup'
+import axios from 'axios'
+import Layout from '../../components/TheLayout'
 
 interface Policy {
-  id: number;
-  title: string;
-  description: string;
-  policy_type: number;
-  policy_cost: number;
-  initiative: number;
+  id: number
+  title: string
+  description: string
+  policy_type: number
+  policy_cost: number
+  initiative: number
 }
 
 const PolicyTypeMapping = [
@@ -36,61 +36,61 @@ const PolicyTypeMapping = [
   "Economy",
   "Foreign Trade",
   "Natural Resources"
-];
+]
 
 export default function VotePage() {
-  const [policies, setPolicies] = useState<Policy[]>([]);
-  const [selectedPolicies, setSelectedPolicies] = useState<number[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
-  const [successMsg, setSuccessMsg] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [policies, setPolicies] = useState<Policy[]>([])
+  const [selectedPolicies, setSelectedPolicies] = useState<number[]>([])
+  const [loading, setLoading] = useState(true)
+  const [submitting, setSubmitting] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
+  const [successMsg, setSuccessMsg] = useState('')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  const cookies = new Cookies();
-  const router = useRouter();
+  const cookies = new Cookies()
+  const router = useRouter()
 
   useEffect(() => {
-    const token = cookies.get('token');
+    const token = cookies.get('token')
     if (!token) {
-      router.push('/auth/signin');
-      return;
+      router.push('/auth/signin')
+      return
     }
-    setIsAuthenticated(true);
-    fetchPolicies();
-  }, []);
+    setIsAuthenticated(true)
+    fetchPolicies()
+  }, [])
 
   const fetchPolicies = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/v1/policy');
-      setPolicies(response.data);
+      const response = await axios.get('http://localhost:8000/api/v1/policy')
+      setPolicies(response.data)
     } catch (error) {
-      console.error('Error fetching policies:', error);
-      setErrorMsg('Failed to load policies. Please try again.');
+      console.error('Error fetching policies:', error)
+      setErrorMsg('Failed to load policies. Please try again.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handlePolicySelect = (policyId: number) => {
     setSelectedPolicies(prev => {
       if (prev.includes(policyId)) {
-        return prev.filter(id => id !== policyId);
+        return prev.filter(id => id !== policyId)
       } else {
-        return [...prev, policyId];
+        return [...prev, policyId]
       }
-    });
-  };
+    })
+  }
 
   const handleSubmitVotes = async () => {
     if (selectedPolicies.length === 0) {
-      setErrorMsg('Please select at least one policy to vote for.');
-      return;
+      setErrorMsg('Please select at least one policy to vote for.')
+      return
     }
 
-    setSubmitting(true);
+    setSubmitting(true)
     try {
-      const token = cookies.get('token');
+      const token = cookies.get('token')
       const response = await axios.post(
         'http://localhost:8000/api/v1/vote',
         { policy_ids: selectedPolicies },
@@ -100,21 +100,21 @@ export default function VotePage() {
             'Content-Type': 'application/json'
           }
         }
-      );
+      )
 
       if (response.status === 200) {
-        setSuccessMsg('Your votes have been recorded successfully!');
-        setSelectedPolicies([]);
+        setSuccessMsg('Your votes have been recorded successfully!')
+        setSelectedPolicies([])
       } else {
-        setErrorMsg('Failed to record your votes. Please try again.');
+        setErrorMsg('Failed to record your votes. Please try again.')
       }
     } catch (error) {
-      console.error('Voting error:', error);
-      setErrorMsg('Error occurred while voting. Please try again.');
+      console.error('Voting error:', error)
+      setErrorMsg('Error occurred while voting. Please try again.')
     } finally {
-      setSubmitting(false);
+      setSubmitting(false)
     }
-  };
+  }
 
   if (!isAuthenticated) {
     return (
@@ -126,7 +126,7 @@ export default function VotePage() {
           </div>
         </div>
       </Layout>
-    );
+    )
   }
 
   if (loading) {
@@ -136,7 +136,7 @@ export default function VotePage() {
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900"></div>
         </div>
       </Layout>
-    );
+    )
   }
 
   return (
@@ -167,11 +167,10 @@ export default function VotePage() {
             {policies.map((policy) => (
               <div
                 key={policy.id}
-                className={`border rounded-lg p-6 cursor-pointer transition-all ${
-                  selectedPolicies.includes(policy.id)
+                className={`border rounded-lg p-6 cursor-pointer transition-all ${selectedPolicies.includes(policy.id)
                     ? 'border-blue-500 bg-blue-50'
                     : 'border-gray-300 hover:border-gray-400'
-                }`}
+                  }`}
                 onClick={() => handlePolicySelect(policy.id)}
               >
                 <div className="flex items-start justify-between">
@@ -223,5 +222,5 @@ export default function VotePage() {
       <Popups type="error" message={errorMsg} />
       <Popups type="success" message={successMsg} />
     </Layout>
-  );
+  )
 }

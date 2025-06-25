@@ -1,8 +1,6 @@
 import React from 'react'
-import { Divider, Flex, Box, Heading, Text } from '@chakra-ui/layout'
-import { Image } from '@chakra-ui/image'
 import { motion } from 'framer-motion'
-import styled from 'styled-components'
+import Image from 'next/image'
 
 const cardMotion = {
     rest: {
@@ -20,10 +18,6 @@ const cardMotion = {
     }
 }
 
-const Card = styled(motion.div)`
-    cursor: pointer;
-`
-
 export interface BenefitCardProps {
     title: string,
     threshold: number,
@@ -34,13 +28,13 @@ export interface BenefitCardProps {
 
 export default function assignCards(cardData: Array<BenefitCardProps>) {
     return (
-        <Flex justifyContent="center" flexDirection="row" alignItems="center" flexWrap="wrap">
+        <div className="flex justify-center flex-row items-center flex-wrap">
             {cardData.map((c) => (
-                <Box key={c.title} m="2.5rem" minW="50rem">
+                <div key={c.title} className="m-10 min-w-[50rem]">
                     <BenefitCard {...c} />
-                </Box>
+                </div>
             ))}
-        </Flex>
+        </div>
     )
 }
 
@@ -52,39 +46,60 @@ export default function assignCards(cardData: Array<BenefitCardProps>) {
  */
 function DialogBox({ title, threshold, content, imageUrl, imageUrl2 }: BenefitCardProps) {
     return (
-        <Box w="90vv">
-            <Text fontSize="20px" pl="5rem" pb="1rem">
+        <div className="w-[90vw]">
+            <p className="text-xl pl-20 pb-4">
                 Threshold: {threshold} Contribution
-            </Text>
-            <Box pl="5rem">
-                <Flex alignItems="center" justifyContent="center">
-                    <Image src={imageUrl} maxW='50%' mt="1.5rem" mb="1.5rem" ml="1.5rem" h="5rem" />
-                    <Image src={imageUrl2} maxW='50%' mt="1.5rem" mb="1.5rem" ml="1.5rem" h="5rem" />
-                </Flex>
-            </Box>
-            <Flex p="5rem">
-                <Text>{content}</Text>
-            </Flex>
-            <Heading textAlign="center" mb="2rem">{title}</Heading>
-        </Box>
+            </p>
+            <div className="pl-20">
+                <div className="flex items-center justify-center">
+                    {imageUrl && (
+                        <div className="max-w-[50%] mt-6 mb-6 ml-6 h-20 relative">
+                            <Image src={imageUrl} alt="Benefit" fill className="object-contain" />
+                        </div>
+                    )}
+                    {imageUrl2 && (
+                        <div className="max-w-[50%] mt-6 mb-6 ml-6 h-20 relative">
+                            <Image src={imageUrl2} alt="Benefit" fill className="object-contain" />
+                        </div>
+                    )}
+                </div>
+            </div>
+            <div className="p-20">
+                <p className="text-gray-700">{content}</p>
+            </div>
+            <h2 className="text-center mb-8 text-2xl font-bold">{title}</h2>
+        </div>
     )
 }
 
 function BenefitCard({ title, threshold, content, imageUrl, imageUrl2 }: BenefitCardProps) {
     return (
-        <Card className="card" whileHover="hover" animate="rest" variants={cardMotion}>
-            <Box rounded="false" justifyContent="center" pb="3rem" backgroundColor="#afc6c7">
-                <Text fontSize="14px" m="1rem" textAlign="center">
+        <motion.div
+            className="card cursor-pointer"
+            whileHover="hover"
+            animate="rest"
+            variants={cardMotion}
+        >
+            <div className="rounded-none justify-center pb-12 bg-[#afc6c7]">
+                <p className="text-sm m-4 text-center">
                     Threshold: {threshold} Contribution
-                </Text>
-                <Box>
-                    <Flex alignItems="center" justifyContent="center">
-                        <Image src={imageUrl} maxW='50%' mt="1.5rem" mb="1.5rem" ml="1.5rem" h="5rem" />
-                        <Image src={imageUrl2} maxW='50%' mt="1.5rem" mb="1.5rem" ml="1.5rem" h="5rem" />
-                    </Flex>
-                </Box>
-                <Heading textAlign="center" mb="2rem">{title}</Heading>
-            </Box>
-        </Card>
+                </p>
+                <div>
+                    <div className="flex items-center justify-center">
+                        {imageUrl && (
+                            <div className="max-w-[50%] mt-6 mb-6 ml-6 h-20 relative">
+                                <Image src={imageUrl} alt="Benefit" fill className="object-contain" />
+                            </div>
+                        )}
+                        {imageUrl2 && (
+                            <div className="max-w-[50%] mt-6 mb-6 ml-6 h-20 relative">
+                                <Image src={imageUrl2} alt="Benefit" fill className="object-contain" />
+                            </div>
+                        )}
+                    </div>
+                </div>
+                <h2 className="text-center mb-8 text-xl font-bold">{title}</h2>
+            </div>
+        </motion.div>
     )
 }

@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
-import { Divider, Flex, Box, Heading, Text } from '@chakra-ui/layout'
-import { Image } from '@chakra-ui/image'
 import { motion } from 'framer-motion'
-import styled from 'styled-components'
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
+import Image from 'next/image'
 
 /**
  * rest and hover for parent-child usability
@@ -29,12 +26,6 @@ const cardMotion = {
     }
   }
 }
-
-const LineDivider = styled(motion(Divider))`
-`
-const Card = styled(motion.div)`
-    cursor: pointer;
-`
 
 const lineExpansion = {
   rest: {
@@ -69,14 +60,14 @@ export const assignCards = (cardData: Array<LeftCardProps>) => {
     return cardData
   }
   return (
-    <Flex justifyContent="center" flexDirection="column" alignItems="center" p="0.5rem">
+    <div className="flex justify-center flex-col items-center p-2">
       {checkMoreContent(cardData).map((c) => (
         <React.Fragment key={c.title}>
           <LeftCard {...c} />
-          <Box h="3.5rem" />
+          <div className="h-14" />
         </React.Fragment>
       ))}
-    </Flex>
+    </div>
   )
 }
 
@@ -87,39 +78,77 @@ export const assignCards = (cardData: Array<LeftCardProps>) => {
  */
 
 function LeftCard({ title, subtitle, content, imageUrl, moreContent }: LeftCardProps) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [isOpen, setIsOpen] = useState(false)
 
   const expandCard = () => {
-    // set content to content + moreContent
-    // moreContent? content = content?.substr(200) + moreContent : content?.substr(200)
-    onOpen()
+    setIsOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsOpen(false)
   }
 
   return (
-    <Card onClick={expandCard} className="card" whileFocus="focus" whileHover="hover" animate="rest" variants={cardMotion}>
-      <Modal onClose={onClose} isOpen={isOpen} isCentered size="xl" scrollBehavior="inside">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{title}</ModalHeader>
-          <ModalBody>{content + (moreContent ? moreContent : "")}</ModalBody>
-        </ModalContent>
-      </Modal>
-      <Flex justifyContent='space-between' p="2.2rem">
-        <Image src={imageUrl} maxW='50%' h="15rem" />
-        <Box rounded="false" justifyContent="center">
-          <Heading textAlign="center" mb="2rem" maxW="25rem">{title}</Heading>
-          <Text fontSize="0.75rem" pl="5rem" pb="1rem">
-            {subtitle}
-          </Text>
-          <Box pl="5rem">
-            <LineDivider variants={lineExpansion} />
-          </Box>
-          <Box className="card-contents" maxW="25rem" pt="2.5rem" pl="5rem" pr="5rem">
-            {content + (content?.length === 200? "..." : "")}
-          </Box>
-        </Box>
-      </Flex>
-    </Card>
+    <>
+      <motion.div
+        onClick={expandCard}
+        className="card cursor-pointer"
+        whileFocus="focus"
+        whileHover="hover"
+        animate="rest"
+        variants={cardMotion}
+      >
+        {/* Modal */}
+        {isOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+              <div className="flex justify-between items-center p-6 border-b">
+                <h2 className="text-xl font-semibold">{title}</h2>
+                <button
+                  onClick={closeModal}
+                  className="text-gray-400 hover:text-gray-600 text-2xl font-bold"
+                >
+                  &times;
+                </button>
+              </div>
+              <div className="p-6">
+                <p className="text-gray-700 leading-relaxed">
+                  {content + (moreContent ? moreContent : "")}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="flex justify-between p-9">
+          {imageUrl && (
+            <div className="max-w-[50%] h-60 relative">
+              <Image
+                src={imageUrl}
+                alt={title}
+                fill
+                className="object-cover rounded"
+              />
+            </div>
+          )}
+          <div className="flex justify-center flex-col">
+            <h2 className="text-center mb-8 max-w-[25rem] text-2xl font-bold">{title}</h2>
+            <p className="text-xs pl-20 pb-4 text-gray-600">
+              {subtitle}
+            </p>
+            <div className="pl-20">
+              <motion.div
+                className="h-px bg-gray-300"
+                variants={lineExpansion}
+              />
+            </div>
+            <div className="card-contents max-w-[25rem] pt-10 pl-20 pr-20 text-gray-700">
+              {content + (content?.length === 200 ? "..." : "")}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </>
   )
 }
 

@@ -1,37 +1,37 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { Button, Text, Box, Flex, Input, FormControl, FormLabel, Checkbox, VStack, Container } from '@chakra-ui/react';
-import Link from 'next/link';
-import Cookies from 'universal-cookie';
-import { useRouter } from 'next/navigation';
-import Popups from '../../../components/Popup';
-import PageTitle from '../../../components/PageTitle';
-import { Banner } from '../../../components/TheHeader';
-import Layout from '../../../components/TheLayout';
+import React from 'react'
+import { Button, Text, Box, Flex, Input, FormControl, FormLabel, Checkbox, VStack, Container } from '@chakra-ui/react'
+import Link from 'next/link'
+import Cookies from 'universal-cookie'
+import { useRouter } from 'next/navigation'
+import Popups from '../../../components/Popup'
+import PageTitle from '../../../components/PageTitle'
+import { Banner } from '../../../components/TheHeader'
+import Layout from '../../../components/TheLayout'
 
-const host = 'http://127.0.0.1:8000/api/v1';
+const host = 'http://127.0.0.1:8000/api/v1'
 
 export default function SignupPage() {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [confirmPass, setConfirmPass] = React.useState('');
-  const [driverLicense, setDriverLicense] = React.useState('');
-  const [medicare, setMedicare] = React.useState('');
-  const [irn, setIrn] = React.useState('');
-  const [term, setTerm] = React.useState(false);
-  const [errorMsg, setErrorMsg] = React.useState('');
-  const cookies = new Cookies();
-  const router = useRouter();
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [confirmPass, setConfirmPass] = React.useState('')
+  const [driverLicense, setDriverLicense] = React.useState('')
+  const [medicare, setMedicare] = React.useState('')
+  const [irn, setIrn] = React.useState('')
+  const [term, setTerm] = React.useState(false)
+  const [errorMsg, setErrorMsg] = React.useState('')
+  const cookies = new Cookies()
+  const router = useRouter()
 
   async function register(e: any) {
     e.preventDefault()
     if (term === false) {
-      setErrorMsg("You need to accept the terms of user and privacy");
+      setErrorMsg("You need to accept the terms of user and privacy")
       return
     }
     if (password !== confirmPass) {
-      setErrorMsg("Password do not match");
+      setErrorMsg("Password do not match")
       return
     }
     // regex to check at least 8 character with one lower, upper and special character
