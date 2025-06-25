@@ -3,39 +3,39 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 const cardMotion = {
-    rest: {
-        color: "#1d3c4a",
-        transition: {
-            duration: 2,
-        }
-    },
-    hover: {
-        color: "#119911",
-        scale: 1.05,
-        transition: {
-            duration: 0.4,
-        }
+  rest: {
+    color: "#1d3c4a",
+    transition: {
+      duration: 2,
     }
+  },
+  hover: {
+    color: "#119911",
+    scale: 1.05,
+    transition: {
+      duration: 0.4,
+    }
+  }
 }
 
 export interface BenefitCardProps {
-    title: string,
-    threshold: number,
-    content?: string,
-    imageUrl?: string,
-    imageUrl2?: string
+  title: string,
+  threshold: number,
+  content?: string,
+  imageUrl?: string,
+  imageUrl2?: string
 }
 
 export default function assignCards(cardData: Array<BenefitCardProps>) {
-    return (
-        <div className="flex justify-center flex-row items-center flex-wrap">
-            {cardData.map((c) => (
-                <div key={c.title} className="m-10 min-w-[50rem]">
-                    <BenefitCard {...c} />
-                </div>
-            ))}
+  return (
+    <div className="flex justify-center flex-row items-center flex-wrap">
+      {cardData.map((c) => (
+        <div key={c.title} className="m-10 min-w-[50rem]">
+          <BenefitCard {...c} />
         </div>
-    )
+      ))}
+    </div>
+  )
 }
 
 /**
@@ -45,61 +45,61 @@ export default function assignCards(cardData: Array<BenefitCardProps>) {
  * If click out of the box, then close it
  */
 function DialogBox({ title, threshold, content, imageUrl, imageUrl2 }: BenefitCardProps) {
-    return (
-        <div className="w-[90vw]">
-            <p className="text-xl pl-20 pb-4">
-                Threshold: {threshold} Contribution
-            </p>
-            <div className="pl-20">
-                <div className="flex items-center justify-center">
-                    {imageUrl && (
-                        <div className="max-w-[50%] mt-6 mb-6 ml-6 h-20 relative">
-                            <Image src={imageUrl} alt="Benefit" fill className="object-contain" />
-                        </div>
-                    )}
-                    {imageUrl2 && (
-                        <div className="max-w-[50%] mt-6 mb-6 ml-6 h-20 relative">
-                            <Image src={imageUrl2} alt="Benefit" fill className="object-contain" />
-                        </div>
-                    )}
-                </div>
+  return (
+    <div className="w-[90vw]">
+      <p className="text-xl pl-20 pb-4">
+        Threshold: {threshold} Contribution
+      </p>
+      <div className="pl-20">
+        <div className="flex items-center justify-center">
+          {imageUrl && (
+            <div className="max-w-[50%] mt-6 mb-6 ml-6 h-20 relative">
+              <Image src={imageUrl} alt="Benefit" fill className="object-contain" />
             </div>
-            <div className="p-20">
-                <p className="text-gray-700">{content}</p>
+          )}
+          {imageUrl2 && (
+            <div className="max-w-[50%] mt-6 mb-6 ml-6 h-20 relative">
+              <Image src={imageUrl2} alt="Benefit" fill className="object-contain" />
             </div>
-            <h2 className="text-center mb-8 text-2xl font-bold">{title}</h2>
+          )}
         </div>
-    )
+      </div>
+      <div className="p-20">
+        <p className="text-gray-700">{content}</p>
+      </div>
+      <h2 className="text-center mb-8 text-2xl font-bold">{title}</h2>
+    </div>
+  )
 }
 
 function BenefitCard({ title, threshold, content, imageUrl, imageUrl2 }: BenefitCardProps) {
-    return (
-        <motion.div
-            className="card cursor-pointer"
-            whileHover="hover"
-            animate="rest"
-            variants={cardMotion}
-        >
-            <div className="rounded-none justify-center pb-12 bg-[#afc6c7]">
-                <p className="text-sm m-4 text-center">
-                    Threshold: {threshold} Contribution
-                </p>
-                <div>
-                    <div className="flex items-center justify-center">
-                        {imageUrl && (
-                            <div className="max-w-[50%] mt-6 mb-6 ml-6 h-20 relative">
-                                <Image src={imageUrl} alt="Benefit" fill className="object-contain" />
-                            </div>
-                        )}
-                        {imageUrl2 && (
-                            <div className="max-w-[50%] mt-6 mb-6 ml-6 h-20 relative">
-                                <Image src={imageUrl2} alt="Benefit" fill className="object-contain" />
-                            </div>
-                        )}
-                    </div>
-                </div>
-                <h2 className="text-center mb-8 text-xl font-bold">{title}</h2>
-            </div>
-        </motion.div>
-    )
+  return (
+    <motion.div
+      className="card cursor-pointer"
+      whileHover="hover"
+      animate="rest"
+      variants={cardMotion}
+    >
+      <div className="rounded-none justify-center pb-12 bg-[#afc6c7]">
+        <p className="text-sm m-4 text-center">
+          Threshold: {threshold} Contribution
+        </p>
+        <div>
+          <div className="flex items-center justify-center">
+            {imageUrl && (
+              <div className="max-w-[50%] mt-6 mb-6 ml-6 h-20 relative">
+                <Image src={imageUrl} alt="Benefit" fill className="object-contain" />
+              </div>
+            )}
+            {imageUrl2 && (
+              <div className="max-w-[50%] mt-6 mb-6 ml-6 h-20 relative">
+                <Image src={imageUrl2} alt="Benefit" fill className="object-contain" />
+              </div>
+            )}
+          </div>
+        </div>
+        <h2 className="text-center mb-8 text-xl font-bold">{title}</h2>
+      </div>
+    </motion.div>
+  )
 }

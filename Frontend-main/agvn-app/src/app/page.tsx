@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import DownCard, { DownCardProps } from "../components/InfoCard/down_card"
 import { Banner } from "../components/TheHeader"
