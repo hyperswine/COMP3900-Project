@@ -103,7 +103,7 @@ export default function InitiativesPage() {
           <h2 className="text-3xl font-bold mb-4">Available Political Initiatives</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Each initiative represents a different political philosophy and approach to governance.
-            Choose the one that best aligns with your values and vision for Australia's future.
+            Choose the one that best aligns with your values and vision for Australia&apos;s future.
           </p>
         </div>
 

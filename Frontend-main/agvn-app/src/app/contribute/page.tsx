@@ -45,7 +45,7 @@ function VContributionDialog({ show, onHide }: { show: boolean, onHide: () => vo
         </div>
         <div className="mt-2 px-7 py-3">
           <p className="text-gray-700">
-            Your contribution index shows how much you've taken part in your community.
+            Your contribution index shows how much you&apos;ve taken part in your community.
             The more you contribute through volunteering, donations, and civic engagement,
             the higher your score. This helps us understand how active citizens are in
             making their communities better.
