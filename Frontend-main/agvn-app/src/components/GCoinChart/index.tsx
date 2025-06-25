@@ -1,9 +1,9 @@
-import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import React from 'react'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
 export interface GCoinChartProps {
-  data: Array<number>;
-  width: number;
+  data: Array<number>
+  width: number
 }
 
 export default function GCoinChart({ data, width }: GCoinChartProps) {
@@ -14,13 +14,13 @@ export default function GCoinChart({ data, width }: GCoinChartProps) {
 
 
   function getData() {
-    var newData: { date: string; value: number; }[] = [];
+    var newData: { date: string; value: number }[] = []
     data.forEach((value, index) => {
-      let newDate = new Date();
+      let newDate = new Date()
       newDate.setDate(newDate.getDate() - 30 + index)
-      newData.push({ "date": newDate.toLocaleDateString('en-AU'), "value": value });
+      newData.push({ "date": newDate.toLocaleDateString('en-AU'), "value": value })
     })
-    return newData;
+    return newData
   }
 
   return (

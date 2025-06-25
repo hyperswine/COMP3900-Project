@@ -1,42 +1,42 @@
-import React from 'react';
-import Cookies from 'universal-cookie';
-import { useRouter } from 'next/navigation';
+import React from 'react'
+import Cookies from 'universal-cookie'
+import { useRouter } from 'next/navigation'
 
-const host = "http://127.0.0.1:8000/api/v1";
+const host = "http://127.0.0.1:8000/api/v1"
 
 interface PopupsProps {
-  type: string;
-  message?: string;
-  toSignin?: boolean;
-  toEdit?: boolean;
+  type: string
+  message?: string
+  toSignin?: boolean
+  toEdit?: boolean
 }
 
-export default function Popups ({ type, message, toSignin, toEdit}: PopupsProps) {
-  const [show, setShow] = React.useState(false);
-  const router = useRouter();
-  const cookies = new Cookies();
+export default function Popups({ type, message, toSignin, toEdit }: PopupsProps) {
+  const [show, setShow] = React.useState(false)
+  const router = useRouter()
+  const cookies = new Cookies()
 
   React.useEffect(() => {
-    if (type === "error" || type=== "success") {
-      setShow(!!message);
+    if (type === "error" || type === "success") {
+      setShow(!!message)
     }
-  }, [type, message]);
+  }, [type, message])
 
-  function makeInvisible () {
-    setShow(false);
+  function makeInvisible() {
+    setShow(false)
     if (toSignin === true) {
-      toSigninPage();
+      toSigninPage()
     } else if (toEdit === true) {
-      toEditPage();
+      toEditPage()
     }
   }
 
-  function toSigninPage () {
-    cookies.remove('token');
-    router.push('/auth/signin');
+  function toSigninPage() {
+    cookies.remove('token')
+    router.push('/auth/signin')
   }
 
-  function toEditPage () {
+  function toEditPage() {
     router.push('/profile/edit')
   }
 

@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 
 interface PageTitleProps {
-  title: string;
-  subtitle?: string;
+  title: string
+  subtitle?: string
 }
 
 const PageTitle = ({ title, subtitle }: PageTitleProps) => {
@@ -15,7 +15,7 @@ const PageTitle = ({ title, subtitle }: PageTitleProps) => {
         {subtitle}
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default PageTitle;
+export default PageTitle
