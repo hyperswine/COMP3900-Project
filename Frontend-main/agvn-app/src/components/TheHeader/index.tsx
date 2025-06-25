@@ -4,9 +4,7 @@
 import React, { useState } from "react"
 import { useRouter } from 'next/navigation'
 import Cookies from 'universal-cookie'
-import { motion } from 'framer-motion'
 import Link from 'next/link'
-import LogoAnimateVariants from '../2DAnimations'
 
 async function randomQuote() {
   const response = await fetch('https://api.quotable.io/random')
@@ -41,25 +39,24 @@ export function Banner({ title, subtitle, quote, author, imgUrl, display = true 
     <div className="bg-gray-800 text-gray-300 p-20">
       <div className="flex flex-col lg:flex-row">
         <div className="flex flex-col w-full lg:w-1/2 items-center mb-8 lg:mb-0">
-          <motion.div whileHover={{ color: "#dc2626", transition: { spring: "infinite" } }}>
+          <div className="transition-colors duration-300 hover:text-red-600">
             <h1 className="text-4xl font-bold text-center">{title}</h1>
-          </motion.div>
+          </div>
           {subtitle && (
             <>
               <hr className="w-40 border-gray-400 my-4" />
-              <motion.p
-                whileHover={{ skew: 5, textShadow: "0 0 10px", transition: { yoyo: "infinite" } }}
-                className="text-lg text-center"
+              <p
+                className="text-lg text-center transition-all duration-300 hover:skew-y-1 hover:drop-shadow-lg"
               >
                 {subtitle}
-              </motion.p>
+              </p>
             </>
           )}
         </div>
         <div className="flex flex-col w-full lg:w-1/2">
-          <motion.div whileHover={{ skew: 2.5, textShadow: "0 0 10px", transition: { spring: "infinite" } }}>
+          <div className="transition-all duration-300 hover:skew-y-1 hover:drop-shadow-lg">
             <h2 className="text-sm font-bold mb-2">&ldquo;{currentQuote}&rdquo;</h2>
-          </motion.div>
+          </div>
           {currentAuthor && (
             <p className="ml-8 text-sm">- {currentAuthor}</p>
           )}
@@ -122,11 +119,11 @@ export default function TheHeader() {
       <div className="container mx-auto px-4 py-2">
         <div className="flex justify-between items-center">
           <Link href="/" className="flex items-center">
-            <motion.img
+            <img
               src={logo}
               width={80}
               height={60}
-              className="cursor-pointer rounded-lg"
+              className="cursor-pointer rounded-lg transition-transform duration-300 hover:scale-110"
               alt="AGVN Logo"
             />
           </Link>
@@ -150,21 +147,19 @@ export default function TheHeader() {
       <div className="border-t border-gray-700">
         <div className="container mx-auto px-4 py-2">
           <div className="flex justify-between items-center">
-            <motion.div whileHover={{ skew: 20, transition: { yoyo: "infinite" } }}>
+            <div className="transition-transform duration-300 hover:skew-y-3">
               <Link href="/" className="text-sm hover:text-blue-400">
                 Auto Governing System | Australia
               </Link>
-            </motion.div>
+            </div>
 
             <div className="flex items-center space-x-4">
               <Link href="/aeros">
-                <motion.img
+                <img
                   src={aeros}
                   width={60}
                   height={30}
-                  variants={LogoAnimateVariants}
-                  whileHover="hover"
-                  className="cursor-pointer"
+                  className="cursor-pointer transition-transform duration-300 hover:scale-110"
                   alt="Aeros"
                 />
               </Link>
@@ -246,25 +241,23 @@ export default function TheHeader() {
                     </svg>
                   </Link>
                   <Link href="/settings" className="hover:text-blue-400">
-                    <motion.div whileHover="hoverthree" variants={LogoAnimateVariants}>
+                    <div className="transition-transform duration-300 hover:scale-110">
                       <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
                       </svg>
-                    </motion.div>
+                    </div>
                   </Link>
                 </>
               )}
 
               <button onClick={toggleTheme} className="hover:text-blue-400">
-                <motion.div
-                  whileHover="hoverfive"
-                  variants={LogoAnimateVariants}
-                  className="rounded-full"
+                <div
+                  className="rounded-full transition-transform duration-300 hover:scale-110"
                 >
                   <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
                   </svg>
-                </motion.div>
+                </div>
               </button>
 
               {auth && (

@@ -1,22 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
-
-const cardMotion = {
-  rest: {
-    color: "#1d3c4a",
-    transition: {
-      duration: 2,
-    }
-  },
-  hover: {
-    color: "#119911",
-    scale: 1.05,
-    transition: {
-      duration: 0.4,
-    }
-  }
-}
 
 export interface BenefitCardProps {
   title: string,
@@ -74,11 +57,8 @@ function DialogBox({ title, threshold, content, imageUrl, imageUrl2 }: BenefitCa
 
 function BenefitCard({ title, threshold, content, imageUrl, imageUrl2 }: BenefitCardProps) {
   return (
-    <motion.div
-      className="card cursor-pointer"
-      whileHover="hover"
-      animate="rest"
-      variants={cardMotion}
+    <div
+      className="card cursor-pointer transition-all duration-300 hover:scale-105 hover:text-green-600"
     >
       <div className="rounded-none justify-center pb-12 bg-[#afc6c7]">
         <p className="text-sm m-4 text-center">
@@ -100,6 +80,6 @@ function BenefitCard({ title, threshold, content, imageUrl, imageUrl2 }: Benefit
         </div>
         <h2 className="text-center mb-8 text-xl font-bold">{title}</h2>
       </div>
-    </motion.div>
+    </div>
   )
 }

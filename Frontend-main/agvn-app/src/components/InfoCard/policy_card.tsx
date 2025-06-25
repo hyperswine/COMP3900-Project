@@ -1,35 +1,5 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
-
-const cardMotion = {
-  rest: {
-    color: "grey",
-    transition: {
-      duration: 2,
-    }
-  },
-  hover: {
-    color: "#97abb8",
-    scale: 1.05,
-    transition: {
-      duration: 0.4,
-    }
-  }
-}
-
-const lineExpansion = {
-  rest: {
-    width: "10rem",
-    duration: 0.2
-  },
-  hover: {
-    width: "20rem",
-    transition: {
-      duration: 0.2
-    }
-  }
-}
 
 export interface PolicyCardProps {
   title: string,
@@ -75,12 +45,9 @@ function PolicyCard({ title, subtitle, content, imageUrl, moreContent }: PolicyC
 
   return (
     <>
-      <motion.div
+      <div
         onClick={expandCard}
-        className="card cursor-pointer p-8"
-        whileHover="hover"
-        animate="rest"
-        variants={cardMotion}
+        className="card cursor-pointer p-8 transition-all duration-300 hover:scale-105"
       >
         {/* Modal */}
         {isOpen && (
@@ -110,10 +77,7 @@ function PolicyCard({ title, subtitle, content, imageUrl, moreContent }: PolicyC
             {subtitle}
           </p>
           <div className="pl-20">
-            <motion.div
-              className="h-px bg-gray-300"
-              variants={lineExpansion}
-            />
+            <div className="h-px bg-gray-300 transition-all duration-200 hover:w-80 w-40" />
           </div>
           {imageUrl && (
             <div className="max-w-[50%] -mt-6 mb-2 ml-[27rem] max-h-12 relative">
@@ -129,7 +93,7 @@ function PolicyCard({ title, subtitle, content, imageUrl, moreContent }: PolicyC
             {content + (content?.length === 200 ? "..." : "")}
           </div>
         </div>
-      </motion.div>
+      </div>
     </>
   )
 }

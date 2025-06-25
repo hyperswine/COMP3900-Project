@@ -13,6 +13,9 @@ const config: Config = {
         'darkest-blue': '#254F90',
         'dark-blue': '#4569A0',
       },
+      animation: {
+        'spin-slow': 'spin 3s linear infinite',
+      },
     },
   },
   plugins: [],

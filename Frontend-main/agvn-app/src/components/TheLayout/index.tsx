@@ -7,7 +7,6 @@ import Header from '../TheHeader'
 import Footer from '../TheFooter'
 import axios from "axios"
 // SVG icons to replace react-bootstrap-icons
-import { motion } from 'framer-motion'
 import { useRef } from 'react'
 
 interface TheLayoutProps {
@@ -104,7 +103,7 @@ const TheLayout: React.FC<TheLayoutProps> = ({ children }) => {
                 key={m.id}
                 className={`flex ${m.by === 0 ? 'justify-end' : 'justify-start'}`}
               >
-                <motion.div whileHover={{ scale: 1.05 }}>
+                <div className="transition-transform duration-200 hover:scale-105">
                   <div
                     className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${m.by === 0
                       ? 'bg-blue-500 text-white'
@@ -116,7 +115,7 @@ const TheLayout: React.FC<TheLayoutProps> = ({ children }) => {
                       <span className="font-normal ml-1">{m.message}</span>
                     </p>
                   </div>
-                </motion.div>
+                </div>
               </div>
             ))}
           </div>
@@ -152,7 +151,7 @@ const TheLayout: React.FC<TheLayoutProps> = ({ children }) => {
       {chatModal}
 
       <div className="fixed bottom-16 right-16 cursor-pointer z-30">
-        <motion.div whileHover={{ scale: 1.1 }}>
+        <div className="transition-transform duration-200 hover:scale-110">
           <div
             onClick={() => setIsModalOpen(true)}
             className="bg-blue-600 hover:bg-blue-700 p-3 rounded-full shadow-lg transition-colors"
@@ -161,7 +160,7 @@ const TheLayout: React.FC<TheLayoutProps> = ({ children }) => {
               <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
             </svg>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <Header />

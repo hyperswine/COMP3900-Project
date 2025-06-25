@@ -1,44 +1,5 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
-
-/**
- * rest and hover for parent-child usability
- */
-const cardMotion = {
-  rest: {
-    color: "grey",
-    transition: {
-      duration: 2,
-    }
-  },
-  hover: {
-    color: "#97abb8",
-    scale: 1.05,
-    transition: {
-      duration: 0.4,
-    }
-  },
-  focus: {
-    scale: 1.5,
-    transition: {
-      duration: 0.4,
-    }
-  }
-}
-
-const lineExpansion = {
-  rest: {
-    width: "10rem",
-    duration: 0.2
-  },
-  hover: {
-    width: "20rem",
-    transition: {
-      duration: 0.2
-    }
-  }
-}
 
 interface LeftCardProps {
   title: string,
@@ -90,13 +51,10 @@ function LeftCard({ title, subtitle, content, imageUrl, moreContent }: LeftCardP
 
   return (
     <>
-      <motion.div
+      <div
         onClick={expandCard}
-        className="card cursor-pointer"
-        whileFocus="focus"
-        whileHover="hover"
-        animate="rest"
-        variants={cardMotion}
+        className="card cursor-pointer transition-all duration-300 hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        tabIndex={0}
       >
         {/* Modal */}
         {isOpen && (
@@ -137,17 +95,14 @@ function LeftCard({ title, subtitle, content, imageUrl, moreContent }: LeftCardP
               {subtitle}
             </p>
             <div className="pl-20">
-              <motion.div
-                className="h-px bg-gray-300"
-                variants={lineExpansion}
-              />
+              <div className="h-px bg-gray-300 transition-all duration-200 hover:w-80 w-40" />
             </div>
             <div className="card-contents max-w-[25rem] pt-10 pl-20 pr-20 text-gray-700">
               {content + (content?.length === 200 ? "..." : "")}
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </>
   )
 }

@@ -1,36 +1,6 @@
 import React from 'react'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-
-const cardMotion = {
-  rest: {
-    color: "grey",
-    transition: {
-      duration: 2,
-    }
-  },
-  hover: {
-    color: "#97abb8",
-    scale: 1.05,
-    transition: {
-      duration: 0.4,
-    }
-  }
-}
-
-const lineExpansion = {
-  rest: {
-    width: "10rem",
-    duration: 0.2
-  },
-  hover: {
-    width: "20rem",
-    transition: {
-      duration: 0.2
-    }
-  }
-}
 
 export interface DownCardProps {
   title: string,
@@ -58,11 +28,8 @@ export const assignCards = (cardData: Array<DownCardProps>) => {
 
 function DownCard({ title, subtitle, content, imageUrl, directUrl, externalUrl }: DownCardProps) {
   return (
-    <motion.div
-      className="card cursor-pointer"
-      whileHover="hover"
-      animate="rest"
-      variants={cardMotion}
+    <div
+      className="card cursor-pointer transition-all duration-300 hover:scale-105 hover:text-gray-600"
     >
       <Link href={((directUrl ? directUrl : "") || (externalUrl ? externalUrl : ""))}>
         <div className="rounded-none justify-center py-20">
@@ -71,10 +38,7 @@ function DownCard({ title, subtitle, content, imageUrl, directUrl, externalUrl }
             {subtitle}
           </p>
           <div className="pl-20">
-            <motion.div
-              className="h-px bg-gray-300 mb-6"
-              variants={lineExpansion}
-            />
+            <div className="h-px bg-gray-300 mb-6 transition-all duration-200 hover:w-80 w-40" />
             <div className="flex items-center justify-center">
               {imageUrl && (
                 <div className="max-w-[50%] mt-6 mb-6 ml-6 h-20 relative">
@@ -90,7 +54,7 @@ function DownCard({ title, subtitle, content, imageUrl, directUrl, externalUrl }
           </div>
         </div>
       </Link>
-    </motion.div>
+    </div>
   )
 }
 

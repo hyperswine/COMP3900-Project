@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import Cookies from 'universal-cookie'
-import { motion } from 'framer-motion'
 import GenericModal from '../../components/GenericModal'
 import GCoinChart from '../../components/GCoinChart'
 import Layout from '../../components/TheLayout'
@@ -15,7 +14,10 @@ interface GCoinCardProps {
 
 const GCoinCard = (props: GCoinCardProps) => {
   return (
-    <motion.div whileHover={{ scale: 1.05, boxShadow: "0 0 50px #D2CEAF" }} style={{ borderRadius: "25px" }}>
+    <div
+      className="transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_#D2CEAF]"
+      style={{ borderRadius: "25px" }}
+    >
       <div className="flex justify-between min-w-80 shadow-2xl cursor-pointer rounded-3xl">
         <div className="bg-yellow-200 mr-80 rounded-3xl p-8">
           <p className="font-semibold">Address</p>
@@ -25,7 +27,7 @@ const GCoinCard = (props: GCoinCardProps) => {
           <p className="text-2xl font-semibold p-8">{props.value}</p>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 

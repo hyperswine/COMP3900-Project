@@ -1,15 +1,15 @@
 # AGVN - Australian Government Virtual Network
 
-A modern Next.js 14 application for citizen engagement with Australian government initiatives, built with the App Router and latest React features.
+A modern Next.js 15 application for citizen engagement with Australian government initiatives, built with the App Router and latest React features.
 
 ## 🚀 Features
 
-- **Modern Next.js 14** with App Router
-- **React 18** with latest features
+- **Modern Next.js 15** with App Router
+- **React 19** with latest features
 - **Chakra UI** for modern, accessible components
 - **TypeScript** for type safety
 - **Responsive Design** with mobile-first approach
-- **3D Visualizations** with Three.js and React Three Fiber
+- **Tailwind CSS** for smooth animations and transitions
 - **Real-time Data** with axios and modern data fetching
 - **Authentication** system with cookies
 - **Interactive Charts** with Chart.js and Recharts
@@ -73,22 +73,26 @@ npm run lint
 ## 📦 Key Updates Made
 
 ### Framework Modernization
-- **Next.js**: Upgraded from 10.2.3 to 14.0.4 with App Router
-- **React**: Upgraded from 17.0.2 to 18.2.0
+- **Next.js**: Upgraded from 10.2.3 to 15.3.4 with App Router
+- **React**: Upgraded from 17.0.2 to 19.0.0
 - **TypeScript**: Upgraded from 4.3.2 to 5.3.2
 
 ### UI & Styling
 - **Chakra UI**: Upgraded from 1.6.3 to 2.8.2
 - **Material-UI**: Migrated to @mui/material 5.15.0
 - **Bootstrap**: Upgraded from 5.0.2 to 5.3.2
+- **Tailwind CSS**: Used for animations and transitions (replaced framer-motion)
 
-### 3D & Graphics
-- **Three.js**: Upgraded from 0.130.1 to 0.158.0
-- **React Three Fiber**: Upgraded from 7.0.6 to 8.15.0
+### Removed Dependencies
+
+- **Three.js**: Removed to simplify the project and reduce bundle size
+- **React Three Fiber**: Removed as part of 3D visualization cleanup
+- **Framer Motion**: Replaced with Tailwind CSS animations
 
 ## 🔄 Migration Status
 
-### Completed:
+### Completed
+
 - ✅ Package.json modernization
 - ✅ Next.js configuration for App Router
 - ✅ TypeScript configuration updates
@@ -100,7 +104,8 @@ npm run lint
 - ✅ Loading and 404 pages
 - ✅ ESLint configuration
 
-### In Progress:
+### In Progress
+
 - 🔄 Migrating remaining pages from pages/ to app/
 - 🔄 Updating component imports and paths
 - 🔄 Testing all functionality
