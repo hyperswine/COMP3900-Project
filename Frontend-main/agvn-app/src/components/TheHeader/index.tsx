@@ -25,6 +25,7 @@ export interface BannerProps {
 export function Banner({ title, subtitle, quote, author, imgUrl, display = true }: BannerProps) {
   const [currentQuote, setCurrentQuote] = React.useState(quote || '')
   const [currentAuthor, setCurrentAuthor] = React.useState(author || '')
+  const hasQuote = quote || author
 
   React.useEffect(() => {
     if (!quote || !author) {
@@ -35,6 +36,30 @@ export function Banner({ title, subtitle, quote, author, imgUrl, display = true 
     }
   }, [])
 
+  // If no quote is provided, show centered layout with larger text
+  if (!hasQuote) {
+    return (
+      <div className="bg-gray-800 text-gray-300 p-20">
+        <div className="flex flex-col items-center justify-center">
+          <div className="transition-colors duration-300 hover:text-red-600">
+            <h1 className="text-6xl font-bold text-center">{title}</h1>
+          </div>
+          {subtitle && (
+            <>
+              <hr className="w-60 border-gray-400 my-6" />
+              <p
+                className="text-2xl text-center transition-all duration-300 hover:skew-y-1 hover:drop-shadow-lg"
+              >
+                {subtitle}
+              </p>
+            </>
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  // Default layout with quote on the right
   return (
     <div className="bg-gray-800 text-gray-300 p-20">
       <div className="flex flex-col lg:flex-row">

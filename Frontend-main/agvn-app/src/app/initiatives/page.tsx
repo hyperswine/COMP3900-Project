@@ -90,7 +90,7 @@ export default function InitiativesPage() {
 
   return (
     <Layout>
-      <PageTitle title="Initiatives - AGVN" />
+      {/* <PageTitle title="Initiatives - AGVN" /> */}
       <Banner
         title="Political Initiatives"
         subtitle="Choose the political direction that aligns with your values"

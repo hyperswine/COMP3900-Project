@@ -131,7 +131,7 @@ export default function NotificationsPage() {
 
   return (
     <Layout>
-      <PageTitle title="Notifications - AGVN" />
+      {/* <PageTitle title="Notifications - AGVN" /> */}
       <Banner
         title="Notifications"
         subtitle="Stay updated with the latest news and updates"

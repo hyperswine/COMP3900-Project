@@ -141,7 +141,7 @@ export default function VotePage() {
 
   return (
     <Layout>
-      <PageTitle title="Vote - AGVN" />
+      {/* <PageTitle title="Vote - AGVN" /> */}
       <Banner
         title="Vote on Policies"
         subtitle="Shape Australia's future by voting on important policies"

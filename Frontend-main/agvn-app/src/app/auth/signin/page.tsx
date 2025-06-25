@@ -73,9 +73,9 @@ export default function SigninPage() {
     <Layout>
       <Banner title="Login" subtitle="Login to A-GVN System" />
       <div className="flex flex-col m-20 items-center justify-center">
-        <div className="my-20 h-8">
+        {/* <div className="my-20 h-8">
           <PageTitle title="Sign in" />
-        </div>
+        </div> */}
         <form
           onSubmit={login}
           className="h-full pl-10 max-w-lg w-full space-y-6"

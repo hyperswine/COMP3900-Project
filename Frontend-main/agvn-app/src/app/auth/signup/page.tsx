@@ -83,7 +83,7 @@ export default function SignupPage() {
 
   return (
     <Layout>
-      <PageTitle title="Sign Up - AGVN" />
+      {/* <PageTitle title="Sign Up - AGVN" /> */}
       <Banner title="Sign Up" />
       <div className="max-w-md mx-auto py-8">
         <div className="bg-white p-8 rounded-lg shadow-md">

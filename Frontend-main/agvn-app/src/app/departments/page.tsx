@@ -120,7 +120,7 @@ export default function DepartmentsPage() {
 
   return (
     <Layout>
-      <PageTitle title="Departments - AGVN" />
+      {/* <PageTitle title="Departments - AGVN" /> */}
       <Banner title="Departments" subtitle="Learn about Australian Government Departments" />
 
       <div className="container mx-auto px-4 py-8">
