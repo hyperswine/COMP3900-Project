@@ -154,8 +154,8 @@ export default function NotificationsPage() {
                 <button
                   onClick={() => setFilter('all')}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${filter === 'all'
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                    ? 'bg-white text-gray-900 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
                     }`}
                 >
                   All ({notifications.length})
@@ -163,8 +163,8 @@ export default function NotificationsPage() {
                 <button
                   onClick={() => setFilter('unread')}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${filter === 'unread'
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                    ? 'bg-white text-gray-900 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
                     }`}
                 >
                   Unread ({unreadCount})
@@ -200,8 +200,8 @@ export default function NotificationsPage() {
                 <div
                   key={notification.id}
                   className={`border rounded-lg p-6 transition-all ${notification.read
-                      ? 'bg-white border-gray-200'
-                      : 'bg-blue-50 border-blue-200'
+                    ? 'bg-white border-gray-200'
+                    : 'bg-blue-50 border-blue-200'
                     }`}
                 >
                   <div className="flex items-start justify-between">

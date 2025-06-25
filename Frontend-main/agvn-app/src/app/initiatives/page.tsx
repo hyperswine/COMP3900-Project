@@ -1,15 +1,15 @@
-'use client';
+'use client'
 
 // @ts-nocheck
 
-import React from "react";
-import PageTitle from "../../components/PageTitle";
-import { assignCards } from "../../components/InfoCard";
-import { Banner } from "../../components/TheHeader";
-import axios from "axios";
-import { useState } from "react";
-import Popups from "../../components/Popup";
-import Layout from '../../components/TheLayout';
+import React from "react"
+import PageTitle from "../../components/PageTitle"
+import { assignCards } from "../../components/InfoCard"
+import { Banner } from "../../components/TheHeader"
+import axios from "axios"
+import { useState } from "react"
+import Popups from "../../components/Popup"
+import Layout from '../../components/TheLayout'
 
 // Use public path for app router
 const torch = '/assets/Initiative_logos/conservatism_logo_2.png'
@@ -125,11 +125,10 @@ export default function InitiativesPage() {
                 <button
                   onClick={() => handleVoteForInitiative(index + 1)}
                   disabled={isVoting || selectedInitiative === index + 1}
-                  className={`w-full py-3 px-4 rounded-md font-medium transition-colors ${
-                    selectedInitiative === index + 1
+                  className={`w-full py-3 px-4 rounded-md font-medium transition-colors ${selectedInitiative === index + 1
                       ? 'bg-green-600 text-white'
                       : 'bg-blue-600 hover:bg-blue-700 text-white'
-                  } disabled:opacity-50 disabled:cursor-not-allowed`}
+                    } disabled:opacity-50 disabled:cursor-not-allowed`}
                 >
                   {isVoting && selectedInitiative === index + 1
                     ? 'Recording Vote...'

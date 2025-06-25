@@ -42,10 +42,10 @@ const PoliticalInterests = () => {
           <div key={index} className="grid grid-cols-2 gap-4 py-2">
             <div>{p.policyType}</div>
             <div className={`font-medium ${p.favorability === 'High' || p.favorability === 'Very High'
-                ? 'text-green-600'
-                : p.favorability === 'Neutral'
-                  ? 'text-blue-600'
-                  : 'text-gray-600'
+              ? 'text-green-600'
+              : p.favorability === 'Neutral'
+                ? 'text-blue-600'
+                : 'text-gray-600'
               }`}>
               {p.favorability}
             </div>
