@@ -2,9 +2,7 @@
 
 import React from 'react'
 import { assignCards, PolicyCardProps } from '../../components/InfoCard/policy_card'
-import { Grid, Flex } from '@chakra-ui/react'
 import { Banner } from '../../components/TheHeader'
-import { Button, Input, Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import Layout from '../../components/TheLayout'
 import axios from 'axios'
 
@@ -63,43 +61,77 @@ export default function PoliciesPage() {
         <Layout>
             <Banner title="Current Policies" subtitle="Explore government policies and initiatives" />
 
-            <Flex flexDir="column" m="2rem">
-                <Flex mb="2rem" gap="1rem" alignItems="center" flexWrap="wrap">
-                    <Input
+            <div className="flex flex-col m-8">
+                <div className="mb-8 flex gap-4 items-center flex-wrap">
+                    <input
                         placeholder="Search policies..."
                         value={searchValue}
                         onChange={(e) => setSearchValue(e.target.value)}
-                        maxW="300px"
+                        className="max-w-xs px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     />
 
-                    <RadioGroup onChange={setFilterValue} value={filterValue}>
-                        <Stack direction="row" spacing={4}>
-                            <Radio value="0">All</Radio>
-                            <Radio value="1">Health</Radio>
-                            <Radio value="2">Education</Radio>
-                            <Radio value="3">Economy</Radio>
-                        </Stack>
-                    </RadioGroup>
-                </Flex>
+                    <div className="flex gap-4">
+                        <label className="flex items-center">
+                            <input
+                                type="radio"
+                                name="filter"
+                                value="0"
+                                checked={filterValue === "0"}
+                                onChange={(e) => setFilterValue(e.target.value)}
+                                className="mr-2"
+                            />
+                            All
+                        </label>
+                        <label className="flex items-center">
+                            <input
+                                type="radio"
+                                name="filter"
+                                value="1"
+                                checked={filterValue === "1"}
+                                onChange={(e) => setFilterValue(e.target.value)}
+                                className="mr-2"
+                            />
+                            Health
+                        </label>
+                        <label className="flex items-center">
+                            <input
+                                type="radio"
+                                name="filter"
+                                value="2"
+                                checked={filterValue === "2"}
+                                onChange={(e) => setFilterValue(e.target.value)}
+                                className="mr-2"
+                            />
+                            Education
+                        </label>
+                        <label className="flex items-center">
+                            <input
+                                type="radio"
+                                name="filter"
+                                value="3"
+                                checked={filterValue === "3"}
+                                onChange={(e) => setFilterValue(e.target.value)}
+                                className="mr-2"
+                            />
+                            Economy
+                        </label>
+                    </div>
+                </div>
 
-                <Grid
-                    templateColumns="repeat(auto-fit, minmax(300px, 1fr))"
-                    gap={6}
-                    p="1rem"
-                >
+                <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 p-4">
                     {filteredPolicies.map((policy, index) => (
                         <div key={index}>
-                            {assignCards(policy)}
+                            {assignCards([policy])}
                         </div>
                     ))}
-                </Grid>
+                </div>
 
                 {filteredPolicies.length === 0 && (
-                    <Text textAlign="center" fontSize="lg" color="gray.500" mt="2rem">
+                    <p className="text-center text-lg text-gray-500 mt-8">
                         No policies found matching your criteria.
-                    </Text>
+                    </p>
                 )}
-            </Flex>
+            </div>
         </Layout>
     )
 }

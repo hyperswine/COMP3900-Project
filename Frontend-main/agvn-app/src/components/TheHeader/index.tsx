@@ -4,7 +4,6 @@
 import React, { useState } from "react";
 import { useRouter } from 'next/navigation';
 import Cookies from 'universal-cookie';
-import { Gear, Person, Sun, Bell, List, X } from "react-bootstrap-icons";
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import LogoAnimateVariants from '../2DAnimations'

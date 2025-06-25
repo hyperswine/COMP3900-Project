@@ -1,26 +1,12 @@
 import React from 'react'
-import { Flex, Spinner, Text } from '@chakra-ui/react'
 
 export default function Loading() {
   return (
-    <Flex
-      direction="column"
-      align="center"
-      justify="center"
-      minH="100vh"
-      bg="gray.50"
-    >
-      <Spinner
-        thickness="4px"
-        speed="0.65s"
-        emptyColor="gray.200"
-        color="blue.500"
-        size="xl"
-        mb={4}
-      />
-      <Text fontSize="lg" color="gray.600">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+      <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-200 border-t-blue-500 mb-4"></div>
+      <p className="text-lg text-gray-600">
         Loading...
-      </Text>
-    </Flex>
+      </p>
+    </div>
   )
 }

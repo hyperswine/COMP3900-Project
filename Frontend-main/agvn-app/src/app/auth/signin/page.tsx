@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Button, Text, Box, Flex, Input, FormControl, FormLabel } from '@chakra-ui/react'
 import Link from 'next/link'
 import Cookies from 'universal-cookie'
 import { useRouter } from 'next/navigation'
@@ -73,57 +72,60 @@ export default function SigninPage() {
     return (
         <Layout>
             <Banner title="Login" subtitle="Login to A-GVN System" />
-            <Flex flexDir="column" m="5rem" alignItems="center" justifyContent="center" >
-                <Flex my={75} h='2rem'>
+            <div className="flex flex-col m-20 items-center justify-center">
+                <div className="my-20 h-8">
                     <PageTitle title="Sign in" />
-                </Flex>
-                <Box
-                    as="form"
+                </div>
+                <form
                     onSubmit={login}
-                    h="100%"
-                    pl="2.5rem"
-                    maxW="500px"
-                    w="100%"
+                    className="h-full pl-10 max-w-lg w-full space-y-6"
                 >
-                    <FormControl mb={4} isRequired>
-                        <FormLabel>Email address</FormLabel>
-                        <Input
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="email">
+                            Email address *
+                        </label>
+                        <input
+                            id="email"
                             type="email"
                             value={email}
                             onChange={recordEmail}
                             placeholder="Enter your email"
+                            required
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
-                    </FormControl>
+                    </div>
 
-                    <FormControl mb={6} isRequired>
-                        <FormLabel>Password</FormLabel>
-                        <Input
+                    <div className="mb-6">
+                        <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="password">
+                            Password *
+                        </label>
+                        <input
+                            id="password"
                             type="password"
                             value={password}
                             onChange={recordPassword}
                             placeholder="Enter your password"
+                            required
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                         />
-                    </FormControl>
+                    </div>
 
-                    <Button
+                    <button
                         type="submit"
-                        colorScheme="blue"
-                        size="lg"
-                        width="100%"
-                        mb="2rem"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md transition-colors text-lg mb-8"
                     >
                         Sign in
-                    </Button>
+                    </button>
 
-                    <Text textAlign="center">
+                    <p className="text-center text-gray-700">
                         Don't have an account?{' '}
-                        <Text as="span" fontWeight="bold" color="blue.500">
+                        <span className="font-bold text-blue-500 hover:text-blue-600">
                             <Link href="/auth/signup">Create one.</Link>
-                        </Text>
-                    </Text>
-                </Box>
+                        </span>
+                    </p>
+                </form>
                 <Popups type="error" message={errorMsg} />
-            </Flex>
+            </div>
         </Layout>
     )
 }

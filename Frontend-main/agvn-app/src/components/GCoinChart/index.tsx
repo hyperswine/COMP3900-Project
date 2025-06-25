@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chart, Interval, Tooltip, Line } from 'bizcharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export interface GCoinChartProps {
   data: Array<number>;
@@ -15,10 +15,6 @@ export default function GCoinChart({ data, width }: GCoinChartProps) {
 
   function getData() {
     var newData: { date: string; value: number; }[] = [];
-    var option = {
-      day: 'numeric',
-      month: 'numeric'
-    }
     data.forEach((value, index) => {
       let newDate = new Date();
       newDate.setDate(newDate.getDate() - 30 + index)
@@ -28,10 +24,14 @@ export default function GCoinChart({ data, width }: GCoinChartProps) {
   }
 
   return (
-    <Chart data={getData()} width={width} height={400} widthautofit={true} interactions={['active-region']} padding='auto' style={{}}>
-      <Interval position="date*value" />
-      <Line position="date*value" size={1} color={'city'} />
-      <Tooltip shared />
-    </Chart>
+    <ResponsiveContainer width={width} height={400}>
+      <LineChart data={getData()}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="date" />
+        <YAxis />
+        <Tooltip />
+        <Line type="monotone" dataKey="value" stroke="#8884d8" strokeWidth={2} />
+      </LineChart>
+    </ResponsiveContainer>
   )
 }

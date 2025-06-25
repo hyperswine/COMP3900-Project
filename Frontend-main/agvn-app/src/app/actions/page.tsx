@@ -4,10 +4,7 @@
 import assignActions, { ActionProp } from '../../components/Actions'
 import React from 'react'
 import { Banner } from '../../components/TheHeader'
-import { Box, Button, Flex, Input } from '@chakra-ui/react'
 import axios from 'axios'
-import { Radio, RadioGroup } from "@chakra-ui/react"
-import { CodeSlash } from 'react-bootstrap-icons'
 import Layout from '../../components/TheLayout'
 
 // Use public path for app router
@@ -91,23 +88,52 @@ export default function ActionPage() {
     return (
         <Layout>
             <Banner title="Actions" subtitle="AGVN is prepared to take action" quote="The most effective way to do it, is to do it." author="Amelia Earhart" />
-            <Box>
+            <div>
                 {assignActions(actions)}
-            </Box>
-            <Flex className="ctl-panel" p="5rem" flexDir="column">
-                <CodeSlash size={35} onClick={() => { setDevMode(!devMode) }} cursor="pointer" />
-                {devMode && <>
-                    <Input value={prompt} onChange={handleChange} />
-                    <RadioGroup onChange={setValue} value={value}>
-                        <Flex flexDir="row" p="2rem" flexWrap="wrap">
-                            {Object.keys(ACTION_MAP).map((key, val) => (
-                                <Radio key={key} value={key} m="1rem">{key}</Radio>
-                            ))}
-                        </Flex>
-                    </RadioGroup>
-                    <Button onClick={handleClick}>Submit</Button>
-                </>}
-            </Flex>
+            </div>
+            <div className="ctl-panel p-20 flex flex-col">
+                <div
+                    className="w-9 h-9 cursor-pointer text-gray-600 hover:text-gray-800"
+                    onClick={() => { setDevMode(!devMode) }}
+                >
+                    {/* Code icon placeholder - you can replace with any icon library */}
+                    <svg className="w-full h-full" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                </div>
+                {devMode && (
+                    <div className="mt-4 space-y-4">
+                        <input
+                            value={prompt}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        />
+                        <div className="space-y-2">
+                            <div className="flex flex-row p-8 flex-wrap gap-4">
+                                {Object.keys(ACTION_MAP).map((key, val) => (
+                                    <label key={key} className="flex items-center space-x-2 m-4">
+                                        <input
+                                            type="radio"
+                                            name="action-type"
+                                            value={key}
+                                            checked={value === key}
+                                            onChange={(e) => setValue(e.target.value)}
+                                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2"
+                                        />
+                                        <span className="text-gray-700">{key}</span>
+                                    </label>
+                                ))}
+                            </div>
+                        </div>
+                        <button
+                            onClick={handleClick}
+                            className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors"
+                        >
+                            Submit
+                        </button>
+                    </div>
+                )}
+            </div>
         </Layout>
     )
 }

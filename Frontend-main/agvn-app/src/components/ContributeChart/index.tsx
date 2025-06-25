@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chart, Interval, Tooltip } from 'bizcharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface ContributeChartProps {
   data: Array<number>;
@@ -15,10 +15,6 @@ export default function ContributeChart({ data, width }: ContributeChartProps) {
 
   function getData() {
     var newData: { date: string; contribution: number; }[] = [];
-    var option = {
-      day: 'numeric',
-      month: 'numeric'
-    }
     data.forEach((value, index) => {
       let newDate = new Date();
       newDate.setDate(newDate.getDate() - 30 + index)
@@ -28,9 +24,14 @@ export default function ContributeChart({ data, width }: ContributeChartProps) {
   }
 
   return (
-    <Chart data={getData()} width={width} height={400} widthautofit={true} interactions={['active-region']} padding='auto' style={{}}>
-      <Interval position="date*contribution" />
-      <Tooltip shared />
-    </Chart>
+    <ResponsiveContainer width={width} height={400}>
+      <BarChart data={getData()}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="date" />
+        <YAxis />
+        <Tooltip />
+        <Bar dataKey="contribution" fill="#8884d8" />
+      </BarChart>
+    </ResponsiveContainer>
   )
 }

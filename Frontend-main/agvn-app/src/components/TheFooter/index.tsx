@@ -1,67 +1,74 @@
 import React from "react"
 import Link from "next/link"
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from 'mdbreact'
-
+import Image from "next/image"
 
 export default function TheFooter() {
-  const logo = require("../../public/assets/AGVN_white_transparent.png")
-
   return (
-    <MDBFooter color="blue darken-4" className="font-small pt-4 mt-4">
-      <MDBContainer className="mt-5 mb-2 text-center text-md-left">
-        <MDBRow>
+    <footer className="bg-blue-900 text-white pt-4 mt-4">
+      <div className="container mx-auto px-4 mt-5 mb-2">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
 
-          <MDBCol md="2" lg="2" xl="2" className="mb-3">
-            <h5 className="text-uppercase font-weight-bold">
-              <strong>Meta</strong>
+          <div className="mb-3">
+            <h5 className="text-white uppercase font-bold text-lg mb-4">
+              Meta
             </h5>
-            <hr className="blue-light accent-2 mb-4 mt-0 d-inline-block mx-auto" style={{ width: "60px" }} />
-            <p><Link href="/about">About</Link></p>
-            <p>Contact us</p>
-            <p>Need help?</p>
-            <p>Translator</p>
-          </MDBCol>
-          <MDBCol md="3" lg="2" xl="2" className="mb-3">
-            <h5 className="text-uppercase font-weight-bold">
-              <strong>Terms</strong>
+            <hr className="w-15 h-0.5 bg-blue-300 mb-4 mt-0" />
+            <div className="space-y-2">
+              <p><Link href="/about" className="text-gray-300 hover:text-white">About</Link></p>
+              <p className="text-gray-300">Contact us</p>
+              <p className="text-gray-300">Need help?</p>
+              <p className="text-gray-300">Translator</p>
+            </div>
+          </div>
+
+          <div className="mb-3">
+            <h5 className="text-white uppercase font-bold text-lg mb-4">
+              Terms
             </h5>
-            <hr className="blue-light accent-2 mb-4 mt-0 d-inline-block mx-auto" style={{ width: "60px" }} />
-            <p>Privacy</p>
-            <p>Terms of use</p>
-            <p>SMS</p>
-            <p>Complaints</p>
-          </MDBCol>
-          <MDBCol md="4" lg="3" xl="3" className="mb-3">
-            <h5 className="text-uppercase font-weight-bold">
-              <strong>Usage</strong>
+            <hr className="w-15 h-0.5 bg-blue-300 mb-4 mt-0" />
+            <div className="space-y-2">
+              <p className="text-gray-300">Privacy</p>
+              <p className="text-gray-300">Terms of use</p>
+              <p className="text-gray-300">SMS</p>
+              <p className="text-gray-300">Complaints</p>
+            </div>
+          </div>
+
+          <div className="mb-3">
+            <h5 className="text-white uppercase font-bold text-lg mb-4">
+              Usage
             </h5>
-            <hr className="blue-light accent-2 mb-4 mt-0 d-inline-block mx-auto" style={{ width: "60px" }} />
-            <p>Email: agvn@agvn.info</p>
-            <p>Report fraud</p>
-            <p>Social media</p>
-            <p>News articles</p>
-          </MDBCol>
-          <MDBCol md="4" lg="5" xl="4" className="mb-3 text-md-center">
-            <h5>
-              <img
-                src={logo}
-                width='274.96'
-                height='560'
+            <hr className="w-15 h-0.5 bg-blue-300 mb-4 mt-0" />
+            <div className="space-y-2">
+              <p className="text-gray-300">Email: agvn@agvn.info</p>
+              <p className="text-gray-300">Report fraud</p>
+              <p className="text-gray-300">Social media</p>
+              <p className="text-gray-300">News articles</p>
+            </div>
+          </div>
+
+          <div className="mb-3 text-center md:text-center">
+            <div className="mb-4">
+              <Image
+                src="/assets/AGVN_white_transparent.png"
+                width={137}
+                height={280}
                 alt="AGVN Logo"
-                style={{ cursor: 'pointer', marginLeft: 'auto', marginRight: 'auto' }}
+                className="cursor-pointer mx-auto"
               />
-            </h5>
-            <h5 className="text-uppercase mb-4 font-weight-bold">
+            </div>
+            <h5 className="text-white uppercase mb-4 font-bold text-sm">
               The future has never been so great
             </h5>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-      <div className="footer-copyright text-center py-3">
-        <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright: <a href="https://www.mdbootstrap.com"> AGVN System </a>
-        </MDBContainer>
+          </div>
+        </div>
       </div>
-    </MDBFooter>
+
+      <div className="bg-blue-950 text-center py-3">
+        <div className="container mx-auto px-4">
+          &copy; {new Date().getFullYear()} Copyright: <a href="#" className="text-blue-300 hover:text-white"> AGVN System </a>
+        </div>
+      </div>
+    </footer>
   )
 }
