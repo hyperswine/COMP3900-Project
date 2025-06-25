@@ -226,7 +226,7 @@ export default function Profile() {
                 <div className="lg:col-span-2">
                   <div className="bg-white p-6 rounded-lg shadow-md">
                     <h3 className="text-xl font-bold mb-4">Contribution History</h3>
-                    <ContributeChart />
+                    <ContributeChart data={[10, 15, 8, 20, 12, 18, 25]} width={400} />
                   </div>
                 </div>
               </div>

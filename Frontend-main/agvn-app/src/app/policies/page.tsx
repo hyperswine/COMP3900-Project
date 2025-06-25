@@ -35,7 +35,7 @@ export default function PoliciesPage() {
                 const response = await axios.get('http://127.0.0.1:8000/api/v1/policies')
                 const fetchedPolicies = response.data.map((policy: any) => ({
                     title: policy.title,
-                    description: policy.description,
+                    content: policy.description,
                     imageUrl: PolicyTypeMap[policy.policy_type as keyof typeof PolicyTypeMap] || "/assets/empty_image.png",
                     id: policy.id
                 }))
@@ -50,7 +50,7 @@ export default function PoliciesPage() {
 
     const filteredPolicies = policies.filter(policy => {
         const matchesSearch = policy.title.toLowerCase().includes(searchValue.toLowerCase()) ||
-                            policy.description.toLowerCase().includes(searchValue.toLowerCase())
+                            (policy.content && policy.content.toLowerCase().includes(searchValue.toLowerCase()))
 
         if (filterValue === "0") return matchesSearch
         // Add other filter logic based on your needs

@@ -1,5 +1,5 @@
-import React from "react"
-import { assignCards, DownCardProps } from "../components/InfoCard/down_card"
+import React from 'react'
+import DownCard, { DownCardProps } from "../components/InfoCard/down_card"
 import { Banner } from "../components/TheHeader"
 import Layout from "../components/TheLayout"
 
@@ -51,7 +51,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {HOME_CARDS.map((card, index) => (
             <div key={index}>
-              {assignCards(card)}
+              <DownCard {...card} />
             </div>
           ))}
         </div>

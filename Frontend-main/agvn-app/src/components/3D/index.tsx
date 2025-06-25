@@ -7,9 +7,9 @@
 // import earth from '../public/models/Earth.glb'
 
 function MeshCanvas() {
-    // const [model, setModel] = useLoader(GLTFLoader, earth, draco())
-    // return model ? <primitive object={model.scene} /> : null
-    return <></>
+  // const [model, setModel] = useLoader(GLTFLoader, earth, draco())
+  // return model ? <primitive object={model.scene} /> : null
+  return <></>
 }
 
 export default MeshCanvas

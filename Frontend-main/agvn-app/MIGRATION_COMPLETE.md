@@ -2,7 +2,7 @@
 
 ## Migration Status: ✅ Core Pages Complete
 
-### Successfully Migrated to App Router (with Tailwind CSS):
+### Successfully Migrated to App Router (with Tailwind CSS)
 
 1. **Homepage** - `src/app/page.tsx` ✅
 2. **About** - `src/app/about/page.tsx` ✅
@@ -21,26 +21,30 @@
 13. **Notifications** - `src/app/notifications/page.tsx` ✅
 14. **404 Page** - `src/app/not-found.tsx` ✅
 
-### Framework Changes Made:
+### Framework Changes Made
 
 #### 1. **Tailwind CSS Setup** ✅
+
 - Installed `tailwindcss`, `postcss`, `autoprefixer`
 - Created `tailwind.config.ts` with project-specific colors
 - Updated `globals.css` with Tailwind directives
 - Removed Chakra UI from root layout
 
 #### 2. **App Router Structure** ✅
+
 - Created proper `layout.tsx` with metadata
 - All pages follow `page.tsx` convention
 - Proper directory structure for nested routes
 - Added `'use client'` directive where needed
 
 #### 3. **Import Path Updates** ✅
+
 - Updated static asset imports to use `/public` paths
 - Fixed component import paths for new structure
 - Updated router imports (`next/navigation` vs `next/router`)
 
 #### 4. **Component Conversions** ✅
+
 - Converted Chakra UI components to Tailwind CSS equivalents:
   - `Box` → `div` with Tailwind classes
   - `Flex` → `div` with flexbox classes
@@ -50,7 +54,8 @@
   - `Input` → `input` with form classes
   - `Modal` → Custom modal with Tailwind
 
-### Remaining Pages to Migrate (Optional):
+### Remaining Pages to Migrate (Optional)
+
 - `emails.tsx` - Simple email page
 - `landing.tsx` - Alternative landing page
 - `poll.tsx` - Polling functionality
@@ -59,7 +64,7 @@
 - Profile sub-pages in `profile/edit/`
 - Various utility pages
 
-### Key Technical Improvements:
+### Key Technical Improvements
 
 1. **Performance**: App Router provides better performance with Server Components
 2. **Modern Stack**: Tailwind CSS for utility-first styling
@@ -68,14 +73,16 @@
 5. **Bundle Size**: Removed Chakra UI dependency reduces bundle size
 6. **Developer Experience**: Cleaner, more maintainable code structure
 
-### Next Steps:
+### Next Steps
+
 1. Test all migrated pages for functionality
 2. Update any remaining component references
 3. Remove unused dependencies from `package.json`
 4. Consider migrating remaining utility pages if needed
 5. Update deployment configuration for App Router
 
-### File Structure:
+### File Structure
+
 ```
 src/
 ├── app/

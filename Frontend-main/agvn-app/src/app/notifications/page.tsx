@@ -1,19 +1,19 @@
-'use client';
+'use client'
 
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Cookies from 'universal-cookie';
-import { Banner } from '../../components/TheHeader';
-import PageTitle from '../../components/PageTitle';
-import Layout from '../../components/TheLayout';
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import Cookies from 'universal-cookie'
+import { Banner } from '../../components/TheHeader'
+import PageTitle from '../../components/PageTitle'
+import Layout from '../../components/TheLayout'
 
 interface Notification {
-  id: number;
-  title: string;
-  message: string;
-  type: 'info' | 'warning' | 'success' | 'error';
-  timestamp: string;
-  read: boolean;
+  id: number
+  title: string
+  message: string
+  type: 'info' | 'warning' | 'success' | 'error'
+  timestamp: string
+  read: boolean
 }
 
 // Mock notifications data
@@ -50,74 +50,74 @@ const mockNotifications: Notification[] = [
     timestamp: '2025-06-22T14:00:00Z',
     read: true
   }
-];
+]
 
 export default function NotificationsPage() {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<'all' | 'unread'>('all');
+  const [notifications, setNotifications] = useState<Notification[]>([])
+  const [loading, setLoading] = useState(true)
+  const [filter, setFilter] = useState<'all' | 'unread'>('all')
 
-  const cookies = new Cookies();
-  const router = useRouter();
+  const cookies = new Cookies()
+  const router = useRouter()
 
   useEffect(() => {
-    const token = cookies.get('token');
+    const token = cookies.get('token')
     if (!token) {
-      router.push('/auth/signin');
-      return;
+      router.push('/auth/signin')
+      return
     }
 
     // Simulate API call
     setTimeout(() => {
-      setNotifications(mockNotifications);
-      setLoading(false);
-    }, 500);
-  }, []);
+      setNotifications(mockNotifications)
+      setLoading(false)
+    }, 500)
+  }, [])
 
   const markAsRead = (id: number) => {
     setNotifications(prev =>
       prev.map(notif =>
         notif.id === id ? { ...notif, read: true } : notif
       )
-    );
-  };
+    )
+  }
 
   const markAllAsRead = () => {
     setNotifications(prev =>
       prev.map(notif => ({ ...notif, read: true }))
-    );
-  };
+    )
+  }
 
   const deleteNotification = (id: number) => {
-    setNotifications(prev => prev.filter(notif => notif.id !== id));
-  };
+    setNotifications(prev => prev.filter(notif => notif.id !== id))
+  }
 
   const formatTimestamp = (timestamp: string) => {
-    const date = new Date(timestamp);
+    const date = new Date(timestamp)
     return date.toLocaleDateString('en-AU', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit'
-    });
-  };
+    })
+  }
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case 'info': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'warning': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'success': return 'bg-green-100 text-green-800 border-green-200';
-      case 'error': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'info': return 'bg-blue-100 text-blue-800 border-blue-200'
+      case 'warning': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
+      case 'success': return 'bg-green-100 text-green-800 border-green-200'
+      case 'error': return 'bg-red-100 text-red-800 border-red-200'
+      default: return 'bg-gray-100 text-gray-800 border-gray-200'
     }
-  };
+  }
 
   const filteredNotifications = notifications.filter(notif =>
     filter === 'all' || !notif.read
-  );
+  )
 
-  const unreadCount = notifications.filter(notif => !notif.read).length;
+  const unreadCount = notifications.filter(notif => !notif.read).length
 
   if (loading) {
     return (
@@ -126,7 +126,7 @@ export default function NotificationsPage() {
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900"></div>
         </div>
       </Layout>
-    );
+    )
   }
 
   return (
@@ -153,21 +153,19 @@ export default function NotificationsPage() {
               <div className="flex bg-gray-100 rounded-lg p-1">
                 <button
                   onClick={() => setFilter('all')}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                    filter === 'all'
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${filter === 'all'
                       ? 'bg-white text-gray-900 shadow-sm'
                       : 'text-gray-600 hover:text-gray-900'
-                  }`}
+                    }`}
                 >
                   All ({notifications.length})
                 </button>
                 <button
                   onClick={() => setFilter('unread')}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                    filter === 'unread'
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${filter === 'unread'
                       ? 'bg-white text-gray-900 shadow-sm'
                       : 'text-gray-600 hover:text-gray-900'
-                  }`}
+                    }`}
                 >
                   Unread ({unreadCount})
                 </button>
@@ -201,11 +199,10 @@ export default function NotificationsPage() {
               filteredNotifications.map((notification) => (
                 <div
                   key={notification.id}
-                  className={`border rounded-lg p-6 transition-all ${
-                    notification.read
+                  className={`border rounded-lg p-6 transition-all ${notification.read
                       ? 'bg-white border-gray-200'
                       : 'bg-blue-50 border-blue-200'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -249,5 +246,5 @@ export default function NotificationsPage() {
         </div>
       </div>
     </Layout>
-  );
+  )
 }
